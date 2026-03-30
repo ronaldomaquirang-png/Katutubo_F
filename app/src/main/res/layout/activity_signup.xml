@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F3EF"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logoooo"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="Katutubo Logo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Account"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#4E342E"
+            android:layout_marginBottom="30dp"/>
+
+        <EditText
+            android:id="@+id/fullName"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/rounded_white_bg"
+            android:hint="Full Name"
+            android:inputType="textPersonName"
+            android:paddingHorizontal="15dp"
+            android:layout_marginBottom="15dp"
+            android:importantForAutofill="no"/>
+
+        <EditText
+            android:id="@+id/signUpEmail"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/rounded_white_bg"
+            android:hint="Email Address"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="15dp"
+            android:layout_marginBottom="15dp"
+            android:importantForAutofill="no"/>
+
+        <EditText
+            android:id="@+id/signUpNumber"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/rounded_white_bg"
+            android:hint="Number"
+            android:inputType="number"
+            android:paddingHorizontal="15dp"
+            android:layout_marginBottom="15dp"
+            android:importantForAutofill="no"/>
+
+        <EditText
+            android:id="@+id/signUpPassword"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/rounded_white_bg"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:paddingHorizontal="15dp"
+            android:layout_marginBottom="25dp"
+            android:importantForAutofill="no"/>
+
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="SIGN UP"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#8D6E63"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/backToLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Already have an account? Log In"
+            android:textColor="#6D4C41"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

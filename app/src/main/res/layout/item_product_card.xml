@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:background="@drawable/rounded_white_bg"
+    android:elevation="4dp"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/logoooo"
+        android:contentDescription="Product Image" />
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Product Name"
+        android:textColor="@color/katutubo_brown"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="₱0.00"
+        android:textColor="@color/katutubo_green"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/item_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Description"
+        android:textColor="#666666"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/item_button"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/katutubo_green"
+        android:text="View Product" />
+</LinearLayout>

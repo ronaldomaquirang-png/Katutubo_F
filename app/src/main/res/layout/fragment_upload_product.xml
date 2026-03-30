@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_revert"
+            app:tint="@color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Add New Product"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Media Upload Area (TikTok Style) -->
+            <LinearLayout
+                android:id="@+id/upload_media_area"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/rounded_white_bg"
+                android:backgroundTint="#F5F5F5"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📷"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Add Photos / Video"
+                    android:textColor="@color/katutubo_orange"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Up to 9 photos or a short video"
+                    android:textSize="12sp"
+                    android:textColor="#888888" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Product Name"
+                android:padding="12dp"
+                android:background="@drawable/rounded_white_bg"
+                android:backgroundTint="#F9F9F9" />
+
+            <EditText
+                android:id="@+id/et_product_desc"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:gravity="top"
+                android:hint="Product Description (e.g. materials, origin...)"
+                android:padding="12dp"
+                android:background="@drawable/rounded_white_bg"
+                android:backgroundTint="#F9F9F9" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_product_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Price (₱)"
+                    android:inputType="numberDecimal"
+                    android:padding="12dp"
+                    android:background="@drawable/rounded_white_bg"
+                    android:backgroundTint="#F9F9F9" />
+
+                <View android:layout_width="12dp" android:layout_height="1dp" />
+
+                <EditText
+                    android:id="@+id/et_product_stock"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Stock"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    android:background="@drawable/rounded_white_bg"
+                    android:backgroundTint="#F9F9F9" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Category"
+                android:textStyle="bold" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Textiles" android:paddingHorizontal="15dp" android:paddingVertical="8dp" android:background="@drawable/category_chip_bg" android:layout_marginEnd="8dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pottery" android:paddingHorizontal="15dp" android:paddingVertical="8dp" android:background="@drawable/category_chip_bg" android:layout_marginEnd="8dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Jewelry" android:paddingHorizontal="15dp" android:paddingVertical="8dp" android:background="@drawable/category_chip_bg" android:layout_marginEnd="8dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Baskets" android:paddingHorizontal="15dp" android:paddingVertical="8dp" android:background="@drawable/category_chip_bg" android:layout_marginEnd="8dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_publish"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:text="PUBLISH PRODUCT"
+        android:backgroundTint="@color/katutubo_orange"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+</LinearLayout>

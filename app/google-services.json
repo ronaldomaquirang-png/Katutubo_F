@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "721270053996",
+    "project_id": "katutubo-project",
+    "storage_bucket": "katutubo-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721270053996:android:164a279aa412db20b74c49",
+        "android_client_info": {
+          "package_name": "com.example.katutubo_f"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoGUuZRkfsfr5mkC_kceAzIQnP1CE3jrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
