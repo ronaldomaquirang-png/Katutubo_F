@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Tell us why you canceled"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btn_close_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="✕"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_cancel_reasons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="?android:attr/dividerHorizontal"
+        android:showDividers="middle">
+
+        <RadioButton
+            android:id="@+id/reason1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="No longer needed"
+            android:layout_gravity="start"
+            android:textDirection="ltr"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorSingle" />
+
+        <RadioButton
+            android:id="@+id/reason2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="Need to update order with a coupon"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorSingle" />
+
+        <RadioButton
+            android:id="@+id/reason3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="Need to change color or size"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorSingle" />
+
+        <RadioButton
+            android:id="@+id/reason4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="Payment method not available"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorSingle" />
+
+        <RadioButton
+            android:id="@+id/reason5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="Need to change shipping address"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorSingle" />
+
+        <RadioButton
+            android:id="@+id/reason6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="Better price available"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorSingle" />
+
+        <RadioButton
+            android:id="@+id/reason7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="Seller not responsive to inquiries"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorSingle" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_submit_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#EEEEEE"
+        android:enabled="false"
+        android:text="Submit"
+        android:textColor="#AAAAAA" />
+
+</LinearLayout>
