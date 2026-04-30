@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Stay updated with the latest crafts"
+                android:text="Stay updated with your orders"
                 android:textColor="#FFE6D5"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -39,103 +39,24 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/notification_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- NOTIFICATION 1 -->
-                <LinearLayout
+                <!-- Notifications will be added here dynamically or remain static if none -->
+
+                <!-- Placeholder for "No notifications" if needed -->
+                <TextView
+                    android:id="@+id/tv_empty_notifications"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/rounded_white_bg"
-                    android:elevation="2dp"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="📢"
-                        android:textSize="24sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="New Arrival!"
-                            android:textColor="@color/katutubo_brown"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Check out the new collection of T'boli brass jewelry."
-                            android:textColor="#666666"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="2 hours ago"
-                            android:textColor="#999999"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/rounded_white_bg"
-                    android:elevation="2dp"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="📦"
-                        android:textSize="24sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Order Shipped"
-                            android:textColor="@color/katutubo_brown"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Your order #12345 has been shipped and is on its way!"
-                            android:textColor="#666666"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="1 day ago"
-                            android:textColor="#999999"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-                </LinearLayout>
+                    android:gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:text="No new notifications"
+                    android:textColor="@color/katutubo_brown"
+                    android:visibility="gone" />
 
             </LinearLayout>
         </ScrollView>

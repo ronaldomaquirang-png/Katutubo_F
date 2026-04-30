@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,15 +20,23 @@ public class MainActivity extends AppCompatActivity {
         Button enterBtn = findViewById(R.id.enterBtn);
 
         // Set initial fragment (Home)
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new HomeFragment())
-                .commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment(), "HOME_FRAGMENT")
+                    .commit();
+        }
 
         enterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Hide the entrance/splash screen to reveal the market
                 entranceScreen.setVisibility(View.GONE);
+                
+                // Show the ad popup now that we're entering the home screen
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag("HOME_FRAGMENT");
+                if (fragment instanceof HomeFragment) {
+                    ((HomeFragment) fragment).showAdPopup();
+                }
             }
         });
     }

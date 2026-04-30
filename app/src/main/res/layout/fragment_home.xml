@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/katutubo_beige">
+    android:background="#F5F3EF">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,72 +11,85 @@
         android:layout_above="@id/bottom_navigation"
         android:orientation="vertical">
 
-        <!-- HEADER SECTION -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/katutubo_orange"
+            android:background="#E67E22"
             android:orientation="vertical"
-            android:padding="20dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/logoooo"
-                    android:contentDescription="Market Logo" />
-
-                <TextView
-                    android:id="@+id/profile_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="👤"
-                    android:textSize="40dp"
-                    android:clickable="true"
-                    android:focusable="true"/>
-            </RelativeLayout>
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Hello"
+                android:layout_gravity="center_horizontal"
+                android:text="KATUTUBO"
                 android:textColor="@color/white"
-                android:textSize="26sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Welcome to Katutubo Indigenous Market"
-                android:textColor="#FFE6D5"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/SearchBar"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="63dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/rounded_white_bg"
-                android:drawableStart="@android:drawable/ic_menu_search"
-                android:drawablePadding="10dp"
-                android:hint="Search products..."
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_dialog_email"
+                    app:tint="@color/white" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_white_bg">
+
+                    <EditText
+                        android:id="@+id/SearchBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Search products..."
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="80dp"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@android:drawable/ic_menu_camera"
+                            app:tint="#888888" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@android:drawable/ic_menu_search"
+                            app:tint="#333333" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/katutubo_brown"
+            android:background="#4E342E"
             android:scrollbars="none">
 
             <LinearLayout
@@ -144,12 +157,56 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/product_list_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-                <!-- Products will be added here dynamically from HomeFragment.java -->
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Flash Sale"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#E67E22"/>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:paddingHorizontal="8dp">
+                    <LinearLayout
+                        android:id="@+id/discounted_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hot Picks"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#4E342E"/>
+
+                <GridLayout
+                    android:id="@+id/hot_picks_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="4"
+                    android:padding="10dp"/>
+
+                <LinearLayout
+                    android:id="@+id/product_list_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -159,9 +216,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/katutubo_brown"
+        android:background="#E67E22"
+        app:itemIconSize="24dp"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>

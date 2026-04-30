@@ -1,5 +1,45 @@
 <resources>
     <string name="app_name">Katutubo_F</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Facebook configuration -->
+    <string name="facebook_app_id" translatable="false">1870350397014009</string>
+    <string name="fb_login_protocol_scheme">fb1870350397014009</string>
+    <string name="facebook_client_token" translatable="false">75955b57d5985834316a75f110751368</string>
+
+    <!-- Cart Strings -->
+    <string name="product_name_placeholder">Product Name</string>
+    <string name="price_zero">₱0.00</string>
+    <string name="minus_sign">-</string>
+    <string name="plus_sign">+</string>
+    <string name="default_qty">1</string>
+    <string name="delete_item">Delete Item</string>
+    <string name="product_image">Product Image</string>
+
+    <!-- Order Strings -->
+    <string name="order_id_prefix">Order #</string>
+    <string name="total_prefix">Total: </string>
+    <string name="date_prefix">Date: </string>
+    <string name="cancel_order">Cancel Order</string>
+    <string name="cancel_order_msg">Are you sure you want to cancel this order?</string>
+    <string name="confirm_cancel">Yes, Cancel</string>
+    <string name="no_label">No</string>
+
+    <!-- Home Fragment Strings -->
+    <string name="market_logo_desc">Market Logo</string>
+    <string name="profile_icon_char">👤</string>
+    <string name="hello_text">Hello</string>
+    <string name="welcome_text">Welcome to Katutubo Indigenous Market</string>
+    <string name="search_hint">Search products...</string>
+    <string name="category_all_text">All</string>
+    <string name="category_crafts_text">Crafts</string>
+    <string name="category_clothing_text">Clothing</string>
+    <string name="category_accessories_text">Accessories</string>
+    <string name="category_home_decor_text">Home Decor</string>
+
+    <!-- Entrance Screen Strings -->
+    <string name="katutubo_logo_desc">Katutubo Logo</string>
+    <string name="katutubo_title">Katutubo</string>
+    <string name="indigenous_market">Indigenous Market</string>
+    <string name="enter_market">Enter Market</string>
 </resources>

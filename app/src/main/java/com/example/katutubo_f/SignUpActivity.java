@@ -1,6 +1,5 @@
 package com.example.katutubo_f;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -51,11 +50,10 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        // Fixed back button: Just finish the activity to return to LoginActivity
         backToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -106,8 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-                                                finish();
+                                                finish(); // Return to LoginActivity
                                             } else {
                                                 Toast.makeText(SignUpActivity.this, "Firestore Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                             }

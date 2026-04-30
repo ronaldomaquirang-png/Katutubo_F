@@ -77,11 +77,13 @@
                             android:fontFamily="sans-serif-medium"
                             android:textStyle="bold" />
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@android:drawable/btn_star_big_off"
-                            app:tint="@color/katutubo_orange" />
+                        <CheckBox
+                            android:id="@+id/btn_favorite_detail"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:button="@android:drawable/btn_star_big_off"
+                            android:buttonTint="@color/katutubo_orange"
+                            android:checked="false" />
                     </LinearLayout>
 
                     <TextView
@@ -139,6 +141,7 @@
         android:weightSum="2">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_to_cart"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="0.8"
@@ -150,6 +153,7 @@
             android:elevation="4dp" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_buy_now"
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1.2"

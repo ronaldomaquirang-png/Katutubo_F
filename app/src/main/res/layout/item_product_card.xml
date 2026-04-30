@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
@@ -8,13 +9,30 @@
     android:orientation="vertical"
     android:padding="12dp">
 
-    <ImageView
-        android:id="@+id/item_image"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/logoooo"
-        android:contentDescription="Product Image" />
+        android:layout_height="140dp">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@drawable/logoooo"
+            android:contentDescription="Product Image" />
+
+        <CheckBox
+            android:id="@+id/btn_favorite"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:button="@android:drawable/btn_star_big_off"
+            android:buttonTint="@color/katutubo_orange"
+            android:background="@drawable/circle_bg"
+            android:backgroundTint="#80FFFFFF"
+            android:checked="false" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/item_name"

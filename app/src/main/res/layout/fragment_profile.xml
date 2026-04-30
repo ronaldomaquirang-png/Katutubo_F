@@ -21,22 +21,16 @@
                 android:background="@color/katutubo_orange"
                 android:padding="20dp">
 
-                <ImageView
-                    android:id="@+id/settings_icon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:src="@android:drawable/ic_menu_manage"
-                    app:tint="@color/white" />
-
+                <!-- Logged In User Info -->
                 <LinearLayout
+                    android:id="@+id/logged_in_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="70dp"
@@ -52,6 +46,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/profile_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Katutubo User"
@@ -71,6 +66,34 @@
                             android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <!-- Guest Layout -->
+                <LinearLayout
+                    android:id="@+id/guest_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_login_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="LOG IN"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/katutubo_orange"
+                        android:layout_marginEnd="10dp"/>
+
+                    <Button
+                        android:id="@+id/btn_signup_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SIGN UP"
+                        android:backgroundTint="@color/katutubo_brown"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
             </RelativeLayout>
 
             <!-- Purchases Card -->
@@ -113,19 +136,19 @@
                     android:weightSum="4">
                     <LinearLayout android:id="@+id/to_pay" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💳" android:textSize="24sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Pay" android:textSize="11sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Pay" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
                     </LinearLayout>
                     <LinearLayout android:id="@+id/to_ship" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📦" android:textSize="24sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Ship" android:textSize="11sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Ship" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
                     </LinearLayout>
                     <LinearLayout android:id="@+id/to_receive" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚚" android:textSize="24sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Receive" android:textSize="11sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Receive" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
                     </LinearLayout>
                     <LinearLayout android:id="@+id/to_rate" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="⭐" android:textSize="24sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Rate" android:textSize="11sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Rate" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -189,7 +212,8 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="30dp"
                 android:backgroundTint="@color/katutubo_brown"
-                android:text="LOGOUT" />
+                android:text="LOGOUT"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>
