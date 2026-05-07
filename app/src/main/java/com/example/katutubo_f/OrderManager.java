@@ -9,7 +9,6 @@ public class OrderManager {
 
     private OrderManager() {
         orders = new ArrayList<>();
-        // Adding some dummy data for testing if needed
     }
 
     public static synchronized OrderManager getInstance() {
@@ -23,11 +22,12 @@ public class OrderManager {
         orders.add(0, order); // Add to beginning
     }
 
-    public void cancelOrder(String orderId) {
-        for (int i = 0; i < orders.size(); i++) {
-            if (orders.get(i).orderId.equals(orderId)) {
-                orders.get(i).status = "Cancelled";
-                // Optionally remove it or keep it with 'Cancelled' status
+    public void cancelOrder(String orderId, String reason, String time) {
+        for (Order order : orders) {
+            if (order.orderId.equals(orderId)) {
+                order.status = "Cancelled";
+                order.cancellationReason = reason;
+                order.cancellationTime = time;
                 break;
             }
         }
@@ -43,6 +43,11 @@ public class OrderManager {
         public String total;
         public String paymentMethod;
         public String timestamp;
+        
+        // Cancellation details
+        public String cancellationReason;
+        public String cancellationTime;
+        public List<OrderItem> items = new ArrayList<>();
 
         public Order(String orderId, String status, String total, String paymentMethod, String timestamp) {
             this.orderId = orderId;
@@ -50,6 +55,22 @@ public class OrderManager {
             this.total = total;
             this.paymentMethod = paymentMethod;
             this.timestamp = timestamp;
+        }
+    }
+
+    public static class OrderItem {
+        public String name;
+        public String variant;
+        public String price;
+        public int quantity;
+        public int imageResId;
+
+        public OrderItem(String name, String variant, String price, int quantity, int imageResId) {
+            this.name = name;
+            this.variant = variant;
+            this.price = price;
+            this.quantity = quantity;
+            this.imageResId = imageResId;
         }
     }
 }

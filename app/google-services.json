@@ -1,32 +1,30 @@
 {
   "project_info": {
-    "project_number": "11478091257",
+    "project_number": "721270053996",
+    "firebase_url": "https://katutubo-project-default-rtdb.firebaseio.com",
     "project_id": "katutubo-project",
     "storage_bucket": "katutubo-project.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:11478091257:android:c0018e796a894aa840a928",
+        "mobilesdk_app_id": "1:721270053996:android:164a279aa412db20b74c49",
         "android_client_info": {
-          "package_name": "com.example.katutubo_f",
-          "certificate_hash": [
-            "464581717BFD0F6821C848046BB18A72C62E775A"
-          ]
+          "package_name": "com.example.katutubo_f"
         }
       },
       "oauth_client": [
         {
-          "client_id": "11478091257-dm9ov86pdlkutqmscpq8egge13nif8d4.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "11478091257-c0018e796a894aa840a928.apps.googleusercontent.com",
+          "client_id": "721270053996-cq8407m0nisni4607bkrgdfpdq1h2ke8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.katutubo_f",
-            "certificate_hash": "464581717BFD0F6821C848046BB18A72C62E775A"
+            "certificate_hash": "167e3a909d6a1b0f21f7dcbb50159a75607c0a13"
           }
+        },
+        {
+          "client_id": "721270053996-gej0nr50qd6oqd4c0p65akt92i65d05t.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
@@ -37,8 +35,8 @@
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
-             {
-              "client_id": "11478091257-dm9ov86pdlkutqmscpq8egge13nif8d4.apps.googleusercontent.com",
+            {
+              "client_id": "721270053996-gej0nr50qd6oqd4c0p65akt92i65d05t.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

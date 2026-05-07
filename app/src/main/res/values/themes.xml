@@ -4,7 +4,22 @@
         <!-- Customize your light theme here. -->
     </style>
 
-    <style name="Theme.Katutubo_F" parent="Base.Theme.Katutubo_F" />
+    <style name="Theme.Katutubo_F" parent="Base.Theme.Katutubo_F">
+        <!-- Link the BottomNavigationView to our custom style -->
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <!-- Use a Theme Overlay to change the indicator color safely.
+             This avoids the "attribute not found" error. -->
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigation</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigation" parent="">
+        <!-- colorSecondaryContainer is the standard Material 3 attribute
+             that controls the BottomNavigationView active indicator background -->
+        <item name="colorSecondaryContainer">#EFEBE9</item>
+    </style>
 
     <!-- Shopee Style UI Components -->
     <style name="ShopeeIconBox">
@@ -27,6 +42,5 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">#EEEEEE</item>
-        <item name="android:layout_marginHorizontal">15dp</item>
     </style>
 </resources>

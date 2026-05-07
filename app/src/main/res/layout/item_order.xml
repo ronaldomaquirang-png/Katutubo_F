@@ -52,14 +52,29 @@
         android:textColor="#888888"
         android:textSize="12sp" />
 
-    <Button
-        android:id="@+id/btn_cancel_order"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="Cancel Order"
-        android:textColor="@android:color/holo_red_dark"
-        android:visibility="gone" />
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_buy_again_item"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy Again"
+            android:textColor="@color/katutubo_orange"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_cancel_order"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel Order"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </LinearLayout>

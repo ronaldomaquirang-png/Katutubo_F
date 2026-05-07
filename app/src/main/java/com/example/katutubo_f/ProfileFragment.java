@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment {
         
         view.findViewById(R.id.to_receive).setOnClickListener(v -> 
             switchFragment(OrdersFragment.newInstance("To Receive")));
-        
+
         view.findViewById(R.id.to_rate).setOnClickListener(v -> 
             switchFragment(SimpleDetailFragment.newInstance("To Rate", "No items waiting for your review.")));
 
@@ -82,7 +82,6 @@ public class ProfileFragment extends Fragment {
 
         logoutBtn.setOnClickListener(v -> {
             mAuth.signOut();
-            LoginManager.getInstance().logOut();
             switchFragment(new ProfileFragment());
         });
 
@@ -108,7 +107,45 @@ public class ProfileFragment extends Fragment {
             return false;
         });
 
+        updateBadges(view);
+
         return view;
+    }
+
+    private void updateBadges(View view) {
+        TextView badgeToPay = view.findViewById(R.id.badge_to_pay);
+        TextView badgeToShip = view.findViewById(R.id.badge_to_ship);
+        TextView badgeToReceive = view.findViewById(R.id.badge_to_receive);
+        TextView badgeToRate = view.findViewById(R.id.badge_to_rate);
+
+        int toPayCount = 0;
+        int toShipCount = 0;
+        int toReceiveCount = 0;
+        int toRateCount = 0;
+
+        List<OrderManager.Order> orders = OrderManager.getInstance().getOrders();
+        for (OrderManager.Order order : orders) {
+            if (order.status.equalsIgnoreCase("To Pay")) toPayCount++;
+            else if (order.status.equalsIgnoreCase("To Ship")) toShipCount++;
+            else if (order.status.equalsIgnoreCase("To Receive")) toReceiveCount++;
+            else if (order.status.equalsIgnoreCase("Completed")) toRateCount++;
+        }
+
+        setupBadge(badgeToPay, toPayCount);
+        setupBadge(badgeToShip, toShipCount);
+        setupBadge(badgeToReceive, toReceiveCount);
+        setupBadge(badgeToRate, toRateCount);
+    }
+
+    private void setupBadge(TextView badge, int count) {
+        if (badge != null) {
+            if (count > 0) {
+                badge.setText(String.valueOf(count));
+                badge.setVisibility(View.VISIBLE);
+            } else {
+                badge.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void switchFragment(Fragment fragment) {

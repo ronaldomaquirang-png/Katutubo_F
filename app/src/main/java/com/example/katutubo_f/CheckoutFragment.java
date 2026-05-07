@@ -16,9 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import retrofit2.Call;
@@ -103,13 +105,32 @@ public class CheckoutFragment extends Fragment {
         OrderManager.Order newOrder = new OrderManager.Order(
             orderId, initialStatus, formattedTotal, paymentMethod, timestamp
         );
+        
+        // Populate items from cart
+        List<OrderManager.OrderItem> orderItems = new ArrayList<>();
+        for (CartManager.CartItem cartItem : CartManager.getInstance().getCartItems()) {
+            orderItems.add(new OrderManager.OrderItem(
+                cartItem.title,
+                "Standard", // Default variant if not specified in cart
+                cartItem.price,
+                cartItem.quantity,
+                cartItem.imageResource
+            ));
+        }
+        newOrder.items = orderItems;
+
         OrderManager.getInstance().addOrder(newOrder);
 
         if (!paymentMethod.equals("Cash on Delivery")) {
             createPayMongoIntent((int) (totalAmount * 100)); 
         }
 
+        // Send SMS Notification
         sendSmsNotification("+639918237465", "Katutubo Market: Order " + orderId + " placed via " + paymentMethod + "! Total: " + formattedTotal + ". Estimated arrival: " + estimatedArrival + ". Thank you!");
+
+        // Send Push Notification
+        NotificationHelper.sendOrderNotification(getContext(), "Order Confirmed! 📦", 
+            "Order " + orderId + " has been placed successfully. Total: " + formattedTotal);
 
         Toast.makeText(getContext(), "Order Placed! Check status in Profile.", Toast.LENGTH_LONG).show();
         

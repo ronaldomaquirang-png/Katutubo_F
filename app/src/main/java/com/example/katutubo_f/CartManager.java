@@ -21,7 +21,7 @@ public class CartManager {
     public void addToCart(CartItem item) {
         for (CartItem existingItem : cartItems) {
             if (existingItem.title.equals(item.title)) {
-                existingItem.quantity += 1;
+                existingItem.quantity += item.quantity;
                 return;
             }
         }

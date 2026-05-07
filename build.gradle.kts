@@ -1,28 +1,19 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    alias(libs.plugins.android.application) apply false
-    id("com.google.gms.google-services") version "4.4.4" apply false
+    id("com.android.application") version "8.7.0" apply false
+    id("com.android.library") version "8.7.0" apply false // Match this version too!
+    id("org.jetbrains.kotlin.android") version "1.9.24" apply false
+    id("com.google.gms.google-services") version "4.4.2" apply false
 }
 
+// Custom tasks to easily get your SHA-1 fingerprint for Firebase
 tasks.register("signingReport") {
     group = "help"
     description = "Displays the signing info for the app module"
     dependsOn(":app:signingReport")
 }
 
-tasks.register("sha-1") {
-    group = "help"
-    description = "Alias for signingReport to get SHA-1 fingerprint"
-    dependsOn(":app:signingReport")
-}
-
-tasks.register("signin") {
-    group = "help"
-    description = "Alias for signingReport"
-    dependsOn(":app:signingReport")
-}
-
-tasks.register("Report") {
-    group = "help"
-    description = "Alias for signingReport"
-    dependsOn(":app:signingReport")
-}
+// Aliases (Shortcuts) for the signingReport task
+tasks.register("sha-1") { dependsOn("signingReport") }
+tasks.register("signin") { dependsOn("signingReport") }
+tasks.register("Report") { dependsOn("signingReport") }

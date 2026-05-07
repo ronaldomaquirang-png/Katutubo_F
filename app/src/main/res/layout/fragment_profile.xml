@@ -13,7 +13,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -105,7 +107,9 @@
                 android:background="@drawable/rounded_white_bg"
                 android:elevation="4dp"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="15dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -133,21 +137,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="4">
-                    <LinearLayout android:id="@+id/to_pay" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💳" android:textSize="24sp" />
+                    android:weightSum="4"
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <LinearLayout android:id="@+id/to_pay" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:clipChildren="false" android:clipToPadding="false">
+                        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
+                            <TextView android:id="@+id/icon_to_pay" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💳" android:textSize="24sp" />
+                            <TextView android:id="@+id/badge_to_pay" android:layout_width="16dp" android:layout_height="16dp" android:layout_alignTop="@id/icon_to_pay" android:layout_alignEnd="@id/icon_to_pay" android:layout_marginTop="-4dp" android:layout_marginEnd="-6dp" android:background="@drawable/badge_background" android:gravity="center" android:text="1" android:textColor="@color/white" android:textSize="10sp" android:textStyle="bold" android:visibility="gone" />
+                        </RelativeLayout>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Pay" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
                     </LinearLayout>
-                    <LinearLayout android:id="@+id/to_ship" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📦" android:textSize="24sp" />
+
+                    <LinearLayout android:id="@+id/to_ship" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:clipChildren="false" android:clipToPadding="false">
+                        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
+                            <TextView android:id="@+id/icon_to_ship" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📦" android:textSize="24sp" />
+                            <TextView android:id="@+id/badge_to_ship" android:layout_width="16dp" android:layout_height="16dp" android:layout_alignTop="@id/icon_to_ship" android:layout_alignEnd="@id/icon_to_ship" android:layout_marginTop="-4dp" android:layout_marginEnd="-6dp" android:background="@drawable/badge_background" android:gravity="center" android:text="1" android:textColor="@color/white" android:textSize="10sp" android:textStyle="bold" android:visibility="gone" />
+                        </RelativeLayout>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Ship" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
                     </LinearLayout>
-                    <LinearLayout android:id="@+id/to_receive" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚚" android:textSize="24sp" />
+
+                    <LinearLayout android:id="@+id/to_receive" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:clipChildren="false" android:clipToPadding="false">
+                        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
+                            <TextView android:id="@+id/icon_to_receive" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚚" android:textSize="24sp" />
+                            <TextView android:id="@+id/badge_to_receive" android:layout_width="16dp" android:layout_height="16dp" android:layout_alignTop="@id/icon_to_receive" android:layout_alignEnd="@id/icon_to_receive" android:layout_marginTop="-4dp" android:layout_marginEnd="-6dp" android:background="@drawable/badge_background" android:gravity="center" android:text="1" android:textColor="@color/white" android:textSize="10sp" android:textStyle="bold" android:visibility="gone" />
+                        </RelativeLayout>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Receive" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
                     </LinearLayout>
-                    <LinearLayout android:id="@+id/to_rate" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="⭐" android:textSize="24sp" />
+
+                    <LinearLayout android:id="@+id/to_rate" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:clipChildren="false" android:clipToPadding="false">
+                        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
+                            <TextView android:id="@+id/icon_to_rate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="⭐" android:textSize="24sp" />
+                            <TextView android:id="@+id/badge_to_rate" android:layout_width="16dp" android:layout_height="16dp" android:layout_alignTop="@id/icon_to_rate" android:layout_alignEnd="@id/icon_to_rate" android:layout_marginTop="-4dp" android:layout_marginEnd="-6dp" android:background="@drawable/badge_background" android:gravity="center" android:text="1" android:textColor="@color/white" android:textSize="10sp" android:textStyle="bold" android:visibility="gone" />
+                        </RelativeLayout>
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Rate" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -155,14 +177,10 @@
 
             <!-- Menu List -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/rounded_white_bg"
-                android:elevation="2dp"
-                android:orientation="vertical">
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp" android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp" android:background="@drawable/rounded_white_bg"
+                android:elevation="2dp" android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/my_favorites"
@@ -224,8 +242,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/katutubo_brown"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
         app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>

@@ -76,6 +76,8 @@ public class NotificationFragment extends Fragment {
         params.setMargins(0, 0, 0, 24);
         itemLayout.setLayoutParams(params);
         itemLayout.setElevation(4f);
+        itemLayout.setClickable(true);
+        itemLayout.setFocusable(true);
 
         TextView title = new TextView(getContext());
         title.setText("📦 " + order.status);
@@ -99,6 +101,14 @@ public class NotificationFragment extends Fragment {
         itemLayout.addView(title);
         itemLayout.addView(details);
         itemLayout.addView(time);
+
+        itemLayout.setOnClickListener(v -> {
+            if ("Cancelled".equalsIgnoreCase(order.status)) {
+                switchFragment(CancellationDetailFragment.newInstance(order.orderId));
+            } else {
+                // Handle other status clicks if needed
+            }
+        });
         
         container.addView(itemLayout);
     }
@@ -106,6 +116,7 @@ public class NotificationFragment extends Fragment {
     private void switchFragment(Fragment fragment) {
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 }

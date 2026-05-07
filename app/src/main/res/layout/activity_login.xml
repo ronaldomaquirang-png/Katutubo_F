@@ -93,69 +93,31 @@
                     android:background="#D7CCC8" />
             </LinearLayout>
 
-            <!-- Lazada Style Facebook Button -->
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="12dp">
-
-                <com.facebook.login.widget.LoginButton
-                    android:id="@+id/facebook_login_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="invisible" />
-
-                <LinearLayout
-                    android:id="@+id/custom_facebook_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/facebook_button_bg"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/ic_facebook_logo"
-                        app:tint="#1877F2" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Facebook"
-                        android:textColor="#1877F2"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </FrameLayout>
-
-            <!-- Google Login Button -->
+            <!-- Custom Google Sign-In Button -->
             <LinearLayout
-                android:id="@+id/google_login_button"
+                android:id="@+id/googleSignInBtn"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/facebook_button_bg"
+                android:background="@drawable/google_button_bg"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@drawable/ic_google_logo" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Google"
+                    android:layout_marginStart="12dp"
+                    android:text="Sign in with Google"
                     android:textColor="#5F6368"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -193,7 +155,7 @@
             <ProgressBar
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:indeterminateTint="#1877F2" />
+                android:indeterminateTint="#8D6E63" />
 
             <TextView
                 android:layout_width="wrap_content"

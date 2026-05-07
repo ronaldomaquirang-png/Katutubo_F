@@ -2,10 +2,8 @@
     <string name="app_name">Katutubo_F</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- Facebook configuration -->
-    <string name="facebook_app_id" translatable="false">1870350397014009</string>
-    <string name="fb_login_protocol_scheme">fb1870350397014009</string>
-    <string name="facebook_client_token" translatable="false">75955b57d5985834316a75f110751368</string>
+    <!-- Google Sign-In -->
+    <string name="default_web_client_id">11478091257-dm9ov86pdlkutqmscpq8egge13nif8d4.apps.googleusercontent.com</string>
 
     <!-- Cart Strings -->
     <string name="product_name_placeholder">Product Name</string>

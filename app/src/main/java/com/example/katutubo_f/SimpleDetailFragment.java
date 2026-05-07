@@ -9,10 +9,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class SimpleDetailFragment extends Fragment {
 
@@ -73,6 +78,14 @@ public class SimpleDetailFragment extends Fragment {
             contentTextView.setVisibility(View.GONE);
             displayOrdersByStatus(dynamicContainer, "To Receive");
         }
+        else if ("Cancelled".equals(title)) {
+            contentTextView.setVisibility(View.GONE);
+            displayOrdersByStatus(dynamicContainer, "Cancelled");
+        }
+        else if ("Purchase History".equals(title)) {
+            contentTextView.setVisibility(View.GONE);
+            displayOrdersByStatus(dynamicContainer, ""); // Empty string means all orders
+        }
         
         return view;
     }
@@ -83,42 +96,67 @@ public class SimpleDetailFragment extends Fragment {
         boolean found = false;
         
         for (OrderManager.Order order : orders) {
-            if (order.status.contains(filterStatus)) {
+            if (filterStatus.isEmpty() || order.status.toLowerCase().contains(filterStatus.toLowerCase())) {
                 found = true;
-                View itemView = getLayoutInflater().inflate(R.layout.item_recent_product, container, false);
-                TextView tvTitle = itemView.findViewById(R.id.recent_title);
-                TextView tvPrice = itemView.findViewById(R.id.recent_price);
-                ImageView img = itemView.findViewById(R.id.recent_img);
-
-                img.setImageResource(R.drawable.logoooo);
-                tvTitle.setText("Order #" + order.orderId);
-                tvPrice.setText(order.total);
+                View itemView = getLayoutInflater().inflate(R.layout.item_order, container, false);
                 
-                LinearLayout parentLayout = (LinearLayout)tvTitle.getParent();
-                
-                TextView statusInfo = new TextView(getContext());
-                statusInfo.setText(order.status);
-                statusInfo.setTextColor(getResources().getColor(R.color.katutubo_orange));
-                statusInfo.setTextSize(12);
-                statusInfo.setPadding(0, 4, 0, 0);
-                parentLayout.addView(statusInfo);
+                TextView tvId = itemView.findViewById(R.id.order_id);
+                TextView tvStatus = itemView.findViewById(R.id.order_status);
+                TextView tvTotal = itemView.findViewById(R.id.order_total);
+                TextView tvDate = itemView.findViewById(R.id.order_date);
+                Button btnCancel = itemView.findViewById(R.id.btn_cancel_order);
+                Button btnBuyAgain = itemView.findViewById(R.id.btn_buy_again_item);
 
-                if (order.status.contains("To Pay") || order.status.contains("To Ship")) {
-                    Button btnCancel = new Button(getContext());
-                    btnCancel.setText("Cancel Order");
-                    btnCancel.setAllCaps(false);
-                    btnCancel.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                    btnCancel.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                tvId.setText("Order #" + order.orderId);
+                tvStatus.setText(order.status);
+                tvTotal.setText("Total: " + order.total);
+                tvDate.setText("Date: " + order.timestamp);
+
+                if (order.status.equalsIgnoreCase("To Pay") || order.status.equalsIgnoreCase("To Ship")) {
+                    btnCancel.setVisibility(View.VISIBLE);
                     btnCancel.setOnClickListener(v -> showCancelReasonDialog(order.orderId, container, filterStatus));
-                    parentLayout.addView(btnCancel);
+                } else if (order.status.equalsIgnoreCase("Cancelled") || order.status.equalsIgnoreCase("Completed")) {
+                    btnBuyAgain.setVisibility(View.VISIBLE);
+                    btnBuyAgain.setOnClickListener(v -> handleBuyAgain(order));
                 }
+                
+                itemView.setOnClickListener(v -> {
+                    if (order.status.equalsIgnoreCase("Cancelled")) {
+                        getParentFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, CancellationDetailFragment.newInstance(order.orderId))
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                });
 
                 container.addView(itemView);
             }
         }
         
         if (!found) {
-            showEmptyMessage(container, "No orders found in " + filterStatus);
+            showEmptyMessage(container, "No orders found.");
+        }
+    }
+
+    private void handleBuyAgain(OrderManager.Order order) {
+        if (order.items != null && !order.items.isEmpty()) {
+            for (OrderManager.OrderItem item : order.items) {
+                CartManager.CartItem cartItem = new CartManager.CartItem(
+                        item.name,
+                        item.price,
+                        item.imageResId,
+                        item.quantity
+                );
+                CartManager.getInstance().addToCart(cartItem);
+            }
+            Toast.makeText(getContext(), "Added " + order.items.size() + " items to cart", Toast.LENGTH_SHORT).show();
+            
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new CartFragment())
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            Toast.makeText(getContext(), "No items found in this order", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -140,7 +178,18 @@ public class SimpleDetailFragment extends Fragment {
         });
 
         btnSubmit.setOnClickListener(v -> {
-            OrderManager.getInstance().cancelOrder(orderId);
+            int selectedId = rgReasons.getCheckedRadioButtonId();
+            RadioButton rb = dialogView.findViewById(selectedId);
+            String reason = rb != null ? rb.getText().toString() : "No reason provided";
+            
+            String currentTime = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(new Date());
+            
+            OrderManager.getInstance().cancelOrder(orderId, reason, currentTime);
+            
+            // Send Push Notification for Cancellation
+            NotificationHelper.sendOrderNotification(getContext(), "Order Cancelled ❌", 
+                "Order #" + orderId + " has been successfully cancelled.");
+
             displayOrdersByStatus(container, filterStatus);
             dialog.dismiss();
         });
