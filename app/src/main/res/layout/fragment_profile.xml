@@ -115,12 +115,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp">
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My Purchases"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="My Purchases"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/badge_my_purchases"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/badge_background"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textColor="@color/white"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/btn_view_history"
                         android:layout_width="wrap_content"
@@ -221,17 +239,109 @@
                     android:drawableEnd="@android:drawable/ic_menu_more"
                     android:clickable="true"
                     android:focusable="true"/>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" />
+                <Button
+                    android:id="@+id/logout_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="LOGOUT"
+                    android:textColor="#E74C3C"
+                    android:textStyle="bold"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="15dp"
+                    android:visibility="gone"/>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/logout_button"
+            <!-- Recently Viewed Section -->
+            <LinearLayout
+                android:id="@+id/profile_recent_views_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="30dp"
-                android:backgroundTint="@color/katutubo_brown"
-                android:text="LOGOUT"
-                android:visibility="gone"/>
+                android:orientation="vertical"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recently Viewed"
+                    android:textColor="@color/katutubo_brown"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:layout_marginTop="8dp">
+                    <LinearLayout
+                        android:id="@+id/profile_recent_views_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <!-- You Might Also Like Section -->
+            <LinearLayout
+                android:id="@+id/profile_recommendations_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="You Might Also Like"
+                    android:textColor="@color/katutubo_orange"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:layout_marginTop="8dp">
+                    <LinearLayout
+                        android:id="@+id/profile_recommendations_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <!-- Promotion Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exclusive Promotions"
+                    android:textColor="@color/katutubo_orange"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:layout_marginTop="8dp">
+                    <LinearLayout
+                        android:id="@+id/profile_promo_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

@@ -30,6 +30,7 @@ public class NotificationFragment extends Fragment {
         
         // Mark Notifications as the selected item
         bottomNavigationView.setSelectedItemId(R.id.nav_notifications);
+        BadgeHelper.setupBadges(bottomNavigationView);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

@@ -100,7 +100,32 @@
             android:text="Seller not responsive to inquiries"
             android:button="@null"
             android:drawableEnd="?android:attr/listChoiceIndicatorSingle" />
+
+        <RadioButton
+            android:id="@+id/reason_other"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="Other reason"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorSingle" />
     </RadioGroup>
+
+    <EditText
+        android:id="@+id/et_other_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Type your reason here..."
+        android:visibility="gone"
+        android:background="@drawable/rounded_white_bg"
+        android:padding="12dp"
+        android:elevation="2dp"
+        android:textSize="14sp"
+        android:minLines="3"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btn_submit_cancel"

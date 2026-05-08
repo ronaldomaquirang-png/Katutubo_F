@@ -132,8 +132,6 @@ public class CheckoutFragment extends Fragment {
         NotificationHelper.sendOrderNotification(getContext(), "Order Confirmed! 📦", 
             "Order " + orderId + " has been placed successfully. Total: " + formattedTotal);
 
-        Toast.makeText(getContext(), "Order Placed! Check status in Profile.", Toast.LENGTH_LONG).show();
-        
         CartManager.getInstance().clearCart();
         switchFragment(new ProfileFragment());
     }

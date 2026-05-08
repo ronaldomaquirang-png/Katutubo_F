@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProductDetailFragment extends Fragment {
@@ -79,15 +80,32 @@ public class ProductDetailFragment extends Fragment {
             btnFavorite.setChecked(FavoriteManager.getInstance().isFavorite(favProduct));
             btnFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 FavoriteManager.getInstance().toggleFavorite(favProduct);
-                if (isChecked) {
-                    Toast.makeText(getContext(), "Added to Favorites", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "Removed from Favorites", Toast.LENGTH_SHORT).show();
-                }
             });
         }
 
         backBtn.setOnClickListener(v -> getParentFragmentManager().popBackStack());
+
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+            BadgeHelper.setupBadges(bottomNavigationView);
+            bottomNavigationView.setOnItemSelectedListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.nav_home) {
+                    getParentFragmentManager().popBackStack();
+                    return true;
+                } else if (id == R.id.nav_cart) {
+                    switchFragment(new CartFragment());
+                    return true;
+                } else if (id == R.id.nav_notifications) {
+                    switchFragment(new NotificationFragment());
+                    return true;
+                } else if (id == R.id.nav_profile) {
+                    switchFragment(new ProfileFragment());
+                    return true;
+                }
+                return false;
+            });
+        }
 
         addToCartBtn.setOnClickListener(v -> {
             if (FirebaseAuth.getInstance().getCurrentUser() == null) {
@@ -96,7 +114,11 @@ public class ProductDetailFragment extends Fragment {
                 CartManager.getInstance().addToCart(
                     new CartManager.CartItem(title, price, imageResource, 1)
                 );
-                Toast.makeText(getContext(), title + " added to cart!", Toast.LENGTH_SHORT).show();
+                
+                // Update badges on the BottomNavigationView to reflect the change
+                if (bottomNavigationView != null) {
+                    BadgeHelper.setupBadges(bottomNavigationView);
+                }
             }
         });
 
@@ -115,6 +137,13 @@ public class ProductDetailFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void switchFragment(Fragment fragment) {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void showLoginPrompt(String action) {

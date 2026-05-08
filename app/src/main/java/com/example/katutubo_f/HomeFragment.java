@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment {
 
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        BadgeHelper.setupBadges(bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) return true;
@@ -287,7 +288,6 @@ public class HomeFragment extends Fragment {
                     TextView name = productView.findViewById(R.id.item_name);
                     TextView price = productView.findViewById(R.id.item_price);
                     TextView desc = productView.findViewById(R.id.item_desc);
-                    Button btn = productView.findViewById(R.id.item_button);
                     CheckBox btnFavorite = productView.findViewById(R.id.btn_favorite);
 
                     if (image != null) image.setImageResource(p.imageResource);
@@ -303,7 +303,7 @@ public class HomeFragment extends Fragment {
                         });
                     }
 
-                    if (btn != null) btn.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(p.name, p.price, p.description, p.imageResource)));
+                    productView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(p.name, p.price, p.description, p.imageResource)));
 
                     productListContainer.addView(productView);
                 }

@@ -1,12 +1,13 @@
 package com.example.katutubo_f;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -121,12 +122,10 @@ public class SimpleDetailFragment extends Fragment {
                 }
                 
                 itemView.setOnClickListener(v -> {
-                    if (order.status.equalsIgnoreCase("Cancelled")) {
-                        getParentFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_container, CancellationDetailFragment.newInstance(order.orderId))
-                                .addToBackStack(null)
-                                .commit();
-                    }
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, OrderDetailFragment.newInstance(order.orderId))
+                            .addToBackStack(null)
+                            .commit();
                 });
 
                 container.addView(itemView);
@@ -168,6 +167,7 @@ public class SimpleDetailFragment extends Fragment {
                 .create();
 
         RadioGroup rgReasons = dialogView.findViewById(R.id.rg_cancel_reasons);
+        EditText etOtherReason = dialogView.findViewById(R.id.et_other_reason);
         Button btnSubmit = dialogView.findViewById(R.id.btn_submit_cancel);
         TextView btnClose = dialogView.findViewById(R.id.btn_close_dialog);
 
@@ -175,23 +175,46 @@ public class SimpleDetailFragment extends Fragment {
             btnSubmit.setEnabled(true);
             btnSubmit.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.katutubo_orange)));
             btnSubmit.setTextColor(getResources().getColor(R.color.white));
+
+            if (checkedId == R.id.reason_other) {
+                etOtherReason.setVisibility(View.VISIBLE);
+            } else {
+                etOtherReason.setVisibility(View.GONE);
+            }
         });
 
         btnSubmit.setOnClickListener(v -> {
             int selectedId = rgReasons.getCheckedRadioButtonId();
             RadioButton rb = dialogView.findViewById(selectedId);
-            String reason = rb != null ? rb.getText().toString() : "No reason provided";
-            
-            String currentTime = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(new Date());
-            
-            OrderManager.getInstance().cancelOrder(orderId, reason, currentTime);
-            
-            // Send Push Notification for Cancellation
-            NotificationHelper.sendOrderNotification(getContext(), "Order Cancelled ❌", 
-                "Order #" + orderId + " has been successfully cancelled.");
+            String reason;
 
-            displayOrdersByStatus(container, filterStatus);
-            dialog.dismiss();
+            if (selectedId == R.id.reason_other) {
+                reason = etOtherReason.getText().toString().trim();
+                if (reason.isEmpty()) {
+                    Toast.makeText(getContext(), "Please type your reason", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            } else {
+                reason = rb != null ? rb.getText().toString() : "No reason provided";
+            }
+
+            // Show confirmation dialog
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Cancel Order")
+                    .setMessage("Are you sure you want to cancel this order?")
+                    .setPositiveButton("YES, CANCEL", (confirmDialog, which) -> {
+                        String currentTime = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(new Date());
+                        OrderManager.getInstance().cancelOrder(orderId, reason, currentTime);
+
+                        // Send Push Notification for Cancellation
+                        NotificationHelper.sendOrderNotification(getContext(), "Order Cancelled ❌",
+                                "Order #" + orderId + " has been successfully cancelled.");
+
+                        displayOrdersByStatus(container, filterStatus);
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton("NO", null)
+                    .show();
         });
 
         btnClose.setOnClickListener(v -> dialog.dismiss());
