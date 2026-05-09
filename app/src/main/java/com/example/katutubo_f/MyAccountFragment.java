@@ -40,6 +40,12 @@ public class MyAccountFragment extends Fragment {
 
         view.findViewById(R.id.btn_back).setOnClickListener(v -> getParentFragmentManager().popBackStack());
 
+        view.findViewById(R.id.btn_my_addresses).setOnClickListener(v -> 
+            getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new NewAddressFragment())
+                .addToBackStack(null)
+                .commit());
+
         view.setOnClickListener(v -> {
             // This is just to prevent clicks from passing through to fragments underneath
         });

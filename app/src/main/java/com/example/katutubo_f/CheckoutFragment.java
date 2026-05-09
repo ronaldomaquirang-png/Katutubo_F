@@ -68,6 +68,9 @@ public class CheckoutFragment extends Fragment {
 
         btnBack.setOnClickListener(v -> getParentFragmentManager().popBackStack());
 
+        view.findViewById(R.id.address_container).setOnClickListener(v -> 
+            switchFragment(new NewAddressFragment()));
+
         btnPlaceOrder.setOnClickListener(v -> {
             int selectedId = paymentMethods.getCheckedRadioButtonId();
             if (selectedId == -1) {

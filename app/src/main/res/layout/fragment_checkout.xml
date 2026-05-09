@@ -56,13 +56,16 @@
                     android:layout_marginBottom="8dp"/>
 
                 <LinearLayout
+                    android:id="@+id/address_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_white_bg"
                     android:orientation="vertical"
                     android:padding="16dp"
                     android:layout_marginBottom="20dp"
-                    android:elevation="2dp">
+                    android:elevation="2dp"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
