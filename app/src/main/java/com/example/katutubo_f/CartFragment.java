@@ -20,7 +20,7 @@ import java.util.List;
 public class CartFragment extends Fragment {
 
     private LinearLayout cartContainer;
-    private TextView tvTotalAmount;
+    private TextView tvSubtotal, tvShippingFee, tvTotalAmount;
     private TextView tvEmptyCart;
     private BottomNavigationView bottomNavigationView;
 
@@ -34,6 +34,8 @@ public class CartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
 
         cartContainer = view.findViewById(R.id.cart_items_container);
+        tvSubtotal = view.findViewById(R.id.tv_subtotal_amount);
+        tvShippingFee = view.findViewById(R.id.tv_shipping_fee);
         tvTotalAmount = view.findViewById(R.id.tv_total_amount);
         tvEmptyCart = view.findViewById(R.id.tv_empty_cart);
         Button btnCheckout = view.findViewById(R.id.btn_checkout);
@@ -90,6 +92,8 @@ public class CartFragment extends Fragment {
         
         if (items.isEmpty()) {
             tvEmptyCart.setVisibility(View.VISIBLE);
+            if (tvSubtotal != null) tvSubtotal.setText("₱0.00");
+            if (tvShippingFee != null) tvShippingFee.setText("₱0.00");
             tvTotalAmount.setText("₱0.00");
             return;
         }
@@ -129,7 +133,13 @@ public class CartFragment extends Fragment {
             cartContainer.addView(itemView);
         }
 
-        tvTotalAmount.setText(String.format("₱%,.2f", CartManager.getInstance().getTotalAmount()));
+        double subtotal = CartManager.getInstance().getTotalAmount();
+        double shipping = CartManager.getInstance().getShippingFee();
+        double total = CartManager.getInstance().getGrandTotal();
+
+        if (tvSubtotal != null) tvSubtotal.setText(String.format("₱%,.2f", subtotal));
+        if (tvShippingFee != null) tvShippingFee.setText(String.format("₱%,.2f", shipping));
+        tvTotalAmount.setText(String.format("₱%,.2f", total));
         
         // Update badges to reflect quantity changes
         if (bottomNavigationView != null) {
@@ -147,8 +157,8 @@ public class CartFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         String[] names = {"Ompák", "Sonnod", "Inabal", "Bukag"};
         int[] images = {R.drawable.ompak, R.drawable.sonnod, R.drawable.inaball, R.drawable.bukag};
-        String[] prices = {"₱750.00", "₱600.00", "₱1,400.00", "₱325.00"};
-        String[] original = {"₱1,500", "₱1,200", "₱2,800", "₱650"};
+        String[] prices = {"₱750.00", "₱600.00", "₱1,400.00", "₱150.00"};
+        String[] original = {"₱1,500", "₱1,200", "₱2,800", "₱300"};
         String[] descriptions = {
                 "Bagobo Tagabawa — Bansalan, Digos City",
                 "Bagobo Tagabawa — Bansalan, Digos City",
@@ -232,7 +242,7 @@ public class CartFragment extends Fragment {
         // Different set of products for recommendations
         String[] names = {"Bong an tidas", "Malong", "Dagmay cloth", "Suwat", "Balyog"};
         int[] images = {R.drawable.bongantidas, R.drawable.malong, R.drawable.dagmayy, R.drawable.suwat, R.drawable.balyog};
-        String[] prices = {"₱950.00", "₱850.00", "₱2,500.00", "₱350.00", "₱550.00"};
+        String[] prices = {"₱150.00", "₱850.00", "₱2,500.00", "₱350.00", "₱550.00"};
         String[] descriptions = {
                 "Tagakaolo — Malalag, Sta. Maria",
                 "Tagakaolo — Malalag, Sta. Maria",

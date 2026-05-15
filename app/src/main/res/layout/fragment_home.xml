@@ -75,11 +75,14 @@
                             app:tint="#888888" />
 
                         <ImageView
+                            android:id="@+id/btn_search_categories"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="8dp"
                             android:src="@android:drawable/ic_menu_search"
-                            app:tint="#333333" />
+                            app:tint="#333333"
+                            android:clickable="true"
+                            android:focusable="true" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -200,13 +203,13 @@
                     android:columnCount="4"
                     android:padding="10dp"/>
 
-                <LinearLayout
+                <GridLayout
                     android:id="@+id/product_list_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-                </LinearLayout>
+                    android:columnCount="2"
+                    android:padding="8dp">
+                </GridLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

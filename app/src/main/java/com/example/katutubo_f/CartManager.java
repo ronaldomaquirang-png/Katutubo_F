@@ -61,6 +61,14 @@ public class CartManager {
         return total;
     }
 
+    public double getShippingFee() {
+        return cartItems.isEmpty() ? 0 : 50.0;
+    }
+
+    public double getGrandTotal() {
+        return getTotalAmount() + getShippingFee();
+    }
+
     public void clearCart() {
         cartItems.clear();
     }

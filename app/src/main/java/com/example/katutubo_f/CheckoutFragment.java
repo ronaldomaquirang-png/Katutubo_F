@@ -53,8 +53,8 @@ public class CheckoutFragment extends Fragment {
         TextView tvTotalAmount = view.findViewById(R.id.checkout_total_amount);
 
         double subtotal = CartManager.getInstance().getTotalAmount();
-        double shippingFee = 50.0; // Fixed shipping fee
-        double total = subtotal + shippingFee;
+        double shippingFee = CartManager.getInstance().getShippingFee();
+        double total = CartManager.getInstance().getGrandTotal();
 
         if (tvSubtotal != null) {
             tvSubtotal.setText(String.format(Locale.getDefault(), "₱%,.2f", subtotal));

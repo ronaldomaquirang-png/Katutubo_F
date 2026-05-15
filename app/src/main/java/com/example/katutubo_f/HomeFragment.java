@@ -21,6 +21,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,7 +35,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private TextView catAll, catCrafts, catClothing, catAccessories, catHomeDecor;
-    private LinearLayout productListContainer, discountedContainer;
+    private GridLayout productListContainer;
+    private LinearLayout discountedContainer;
     private List<Product> allProducts = new ArrayList<>();
     private EditText searchBar;
     private String currentCategory = "All";
@@ -59,6 +61,10 @@ public class HomeFragment extends Fragment {
         productListContainer = view.findViewById(R.id.product_list_container);
         discountedContainer = view.findViewById(R.id.discounted_container);
         searchBar = view.findViewById(R.id.SearchBar);
+
+        view.findViewById(R.id.btn_search_categories).setOnClickListener(v -> {
+            switchFragment(new TribeSelectionFragment());
+        });
 
         initProducts();
         displayProducts("All", "");
@@ -181,8 +187,8 @@ public class HomeFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         String[] names = {"Ompák", "Sonnod", "Inabal", "Bukag"};
         int[] images = {R.drawable.ompak, R.drawable.sonnod, R.drawable.inaball, R.drawable.bukag};
-        String[] prices = {"₱750.00", "₱600.00", "₱1,400.00", "₱325.00"};
-        String[] original = {"₱1,500", "₱1,200", "₱2,800", "₱650"};
+        String[] prices = {"₱750.00", "₱600.00", "₱1,400.00", "₱150.00"};
+        String[] original = {"₱1,500", "₱1,200", "₱2,800", "₱300"};
         String[] descriptions = {
             "Bagobo Tagabawa — Bansalan, Digos City",
             "Bagobo Tagabawa — Bansalan, Digos City",
@@ -260,7 +266,7 @@ public class HomeFragment extends Fragment {
         allProducts.add(new Product("Panday (metal crafting)", "₱4,200.00", "Bagobo Tagabawa", "Crafts", R.drawable.panday));
         allProducts.add(new Product("Bukag (basket weaving)", "₱650.00", "Tagakaolo", "Crafts", R.drawable.bukag));
         allProducts.add(new Product("Banig (mat weaving)", "₱1,200.00", "Tagakaolo", "Crafts", R.drawable.banig));
-        allProducts.add(new Product("Suwat (comb)", "₱350.00", "Tagakaolo", "Accessories", R.drawable.suwat));
+        allProducts.add(new Product("Suwat (comb)", "₱150.00", "Tagakaolo", "Accessories", R.drawable.suwat));
         allProducts.add(new Product("Balyog (necklace)", "₱550.00", "Tagakaolo", "Accessories", R.drawable.balyog));
         allProducts.add(new Product("Sinubla (beaded items)", "₱650.00", "Bagobo Tagabawa", "Accessories", R.drawable.sinubla));
         allProducts.add(new Product("Ginamay (beaded belt)", "₱1,100.00", "Bagobo Tagabawa", "Accessories", R.drawable.ginamay));
@@ -284,6 +290,16 @@ public class HomeFragment extends Fragment {
 
                 if (matchesCategory && matchesQuery) {
                     View productView = inflater.inflate(R.layout.item_product_card, productListContainer, false);
+                    
+                    // Set column weight to distribute evenly in GridLayout
+                    GridLayout.LayoutParams params = (GridLayout.LayoutParams) productView.getLayoutParams();
+                    if (params == null) {
+                        params = new GridLayout.LayoutParams();
+                    }
+                    params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+                    params.width = 0;
+                    productView.setLayoutParams(params);
+
                     ImageView image = productView.findViewById(R.id.item_image);
                     TextView name = productView.findViewById(R.id.item_name);
                     TextView price = productView.findViewById(R.id.item_price);

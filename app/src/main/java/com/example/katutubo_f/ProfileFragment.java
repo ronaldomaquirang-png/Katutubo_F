@@ -121,8 +121,8 @@ public class ProfileFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         String[] names = {"Ompák", "Sonnod", "Inabal", "Bukag"};
         int[] images = {R.drawable.ompak, R.drawable.sonnod, R.drawable.inaball, R.drawable.bukag};
-        String[] prices = {"₱750.00", "₱600.00", "₱1,400.00", "₱325.00"};
-        String[] original = {"₱1,500", "₱1,200", "₱2,800", "₱650"};
+        String[] prices = {"₱750.00", "₱600.00", "₱1,400.00", "₱150.00"};
+        String[] original = {"₱1,500", "₱1,200", "₱2,800", "₱300"};
         String[] descriptions = {
                 "Bagobo Tagabawa — Bansalan, Digos City",
                 "Bagobo Tagabawa — Bansalan, Digos City",
@@ -203,7 +203,7 @@ public class ProfileFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         String[] names = {"Bong an tidas", "Malong", "Dagmay cloth", "Suwat", "Balyog"};
         int[] images = {R.drawable.bongantidas, R.drawable.malong, R.drawable.dagmayy, R.drawable.suwat, R.drawable.balyog};
-        String[] prices = {"₱950.00", "₱850.00", "₱2,500.00", "₱350.00", "₱550.00"};
+        String[] prices = {"₱150.00", "₱850.00", "₱2,500.00", "₱350.00", "₱550.00"};
         String[] descriptions = {
                 "Tagakaolo — Malalag, Sta. Maria",
                 "Tagakaolo — Malalag, Sta. Maria",
