@@ -72,9 +72,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showHomeAd() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag("HOME_FRAGMENT");
-        if (fragment instanceof HomeFragment) {
-            ((HomeFragment) fragment).showAdPopup();
-        }
+        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag("HOME_FRAGMENT");
+            if (fragment instanceof HomeFragment) {
+                ((HomeFragment) fragment).showAdPopup();
+            }
+        }, 500); // Wait for HomeFragment to settle
     }
 }

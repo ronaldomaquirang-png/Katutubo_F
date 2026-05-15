@@ -87,10 +87,21 @@
             <EditText
                 android:id="@+id/et_product_desc"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="12dp"
                 android:gravity="top"
-                android:hint="Product Description (e.g. materials, origin...)"
+                android:hint="Product Description (e.g. materials, features...)"
+                android:padding="12dp"
+                android:background="@drawable/rounded_white_bg"
+                android:backgroundTint="#F9F9F9" />
+
+            <EditText
+                android:id="@+id/et_product_history"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="12dp"
+                android:gravity="top"
+                android:hint="History and Origin (How it's made, cultural significance...)"
                 android:padding="12dp"
                 android:background="@drawable/rounded_white_bg"
                 android:backgroundTint="#F9F9F9" />

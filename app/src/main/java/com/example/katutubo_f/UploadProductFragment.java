@@ -32,6 +32,7 @@ public class UploadProductFragment extends Fragment {
 
         EditText etName = view.findViewById(R.id.et_product_name);
         EditText etDesc = view.findViewById(R.id.et_product_desc);
+        EditText etHistory = view.findViewById(R.id.et_product_history);
         EditText etPrice = view.findViewById(R.id.et_product_price);
         EditText etStock = view.findViewById(R.id.et_product_stock);
         Button btnPublish = view.findViewById(R.id.btn_publish);
@@ -41,6 +42,7 @@ public class UploadProductFragment extends Fragment {
         btnPublish.setOnClickListener(v -> {
             String name = etName.getText().toString().trim();
             String desc = etDesc.getText().toString().trim();
+            String history = etHistory.getText().toString().trim();
             String price = etPrice.getText().toString().trim();
             String stock = etStock.getText().toString().trim();
 
@@ -59,6 +61,7 @@ public class UploadProductFragment extends Fragment {
             Map<String, Object> product = new HashMap<>();
             product.put("name", name);
             product.put("description", desc);
+            product.put("history", history);
             product.put("price", "₱" + price);
             product.put("stock", stock);
             product.put("category", "Crafts"); // Default for now

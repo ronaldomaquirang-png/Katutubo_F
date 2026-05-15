@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ProductDetailFragment extends Fragment {
 
-    private String title, price, description, artisan, materials, origin;
+    private String title, price, description, artisan, materials, origin, history;
     private int imageResource;
 
     public ProductDetailFragment() {
@@ -28,10 +28,14 @@ public class ProductDetailFragment extends Fragment {
     }
 
     public static ProductDetailFragment newInstance(String title, String price, String description, int imageResource) {
-        return newInstance(title, price, description, imageResource, null, null, null);
+        return newInstance(title, price, description, imageResource, null, null, null, null);
     }
 
     public static ProductDetailFragment newInstance(String title, String price, String description, int imageResource, String artisan, String materials, String origin) {
+        return newInstance(title, price, description, imageResource, artisan, materials, origin, null);
+    }
+
+    public static ProductDetailFragment newInstance(String title, String price, String description, int imageResource, String artisan, String materials, String origin, String history) {
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
@@ -41,6 +45,7 @@ public class ProductDetailFragment extends Fragment {
         args.putString("artisan", artisan);
         args.putString("materials", materials);
         args.putString("origin", origin);
+        args.putString("history", history);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,6 +61,7 @@ public class ProductDetailFragment extends Fragment {
             artisan = getArguments().getString("artisan");
             materials = getArguments().getString("materials");
             origin = getArguments().getString("origin");
+            history = getArguments().getString("history");
 
             // Add to Recent Views
             RecentViewManager.getInstance().addProduct(
@@ -72,6 +78,7 @@ public class ProductDetailFragment extends Fragment {
         TextView titleTxt = view.findViewById(R.id.productTitle);
         TextView priceTxt = view.findViewById(R.id.productPrice);
         TextView descTxt = view.findViewById(R.id.productDescription);
+        TextView historyTxt = view.findViewById(R.id.productHistory);
         TextView artisanTxt = view.findViewById(R.id.productArtisan);
         TextView materialsTxt = view.findViewById(R.id.productMaterials);
         TextView originTxt = view.findViewById(R.id.productOrigin);
@@ -84,6 +91,7 @@ public class ProductDetailFragment extends Fragment {
         titleTxt.setText(title);
         priceTxt.setText(price);
         descTxt.setText(description);
+        if (historyTxt != null) historyTxt.setText(history != null ? history : "This product carries the rich heritage of its makers, passed down through generations as a symbol of cultural identity and traditional craftsmanship.");
         if (artisanTxt != null) artisanTxt.setText(artisan != null ? artisan : "Traditional Artisan");
         if (materialsTxt != null) materialsTxt.setText(materials != null ? materials : "Natural materials");
         if (originTxt != null) originTxt.setText(origin != null ? origin : "Philippines");
