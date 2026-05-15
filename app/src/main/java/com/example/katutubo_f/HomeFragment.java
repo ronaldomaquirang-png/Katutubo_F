@@ -195,6 +195,9 @@ public class HomeFragment extends Fragment {
             "Bagobo Tagabawa — Bansalan, Digos City",
             "Tagakaolo"
         };
+        String[] artisans = {"Artisan Handcrafted", "Master Weaver", "Traditional Weavers", "Basket Weavers Guild"};
+        String[] materials = {"Abaca fiber", "Handwoven cotton", "Hand-dyed Abaca", "Bamboo, Rattan"};
+        String[] inspirations = {"Ancestral patterns", "Celebration attire", "Sacred designs", "Harvest tradition"};
 
         for (int i = 0; i < names.length; i++) {
             View itemView = inflater.inflate(R.layout.item_discounted_product, discountedContainer, false);
@@ -207,6 +210,9 @@ public class HomeFragment extends Fragment {
             final String finalPrice = prices[i];
             final String finalDesc = descriptions[i];
             final int finalImage = images[i];
+            final String finalArtisan = artisans[i];
+            final String finalMaterial = materials[i];
+            final String finalInspiration = inspirations[i];
 
             img.setImageResource(images[i]);
             name.setText(names[i]);
@@ -214,7 +220,7 @@ public class HomeFragment extends Fragment {
             orig.setText(original[i]);
             orig.setPaintFlags(orig.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(finalName, finalPrice, finalDesc, finalImage)));
+            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(finalName, finalPrice, finalDesc, finalImage, finalArtisan, finalMaterial, finalInspiration)));
             
             discountedContainer.addView(itemView);
         }
@@ -254,22 +260,38 @@ public class HomeFragment extends Fragment {
 
     private void initProducts() {
         allProducts.clear();
-        allProducts.add(new Product("Ompák", "₱1,500.00", "Bagobo Tagabawa — Bansalan, Digos City", "Clothing", R.drawable.ompak));
-        allProducts.add(new Product("Sonnod", "₱1,200.00", "Bagobo Tagabawa — Bansalan, Digos City", "Clothing", R.drawable.sonnod));
-        allProducts.add(new Product("Inabal (Cloth)", "₱2,800.00", "Bagobo Tagabawa — Bansalan, Digos City", "Clothing", R.drawable.inaball));
-        allProducts.add(new Product("Bong an tidas", "₱950.00", "Tagakaolo — Malalag, Sta. Maria", "Clothing", R.drawable.bongantidas));
-        allProducts.add(new Product("Malong / Patadyong", "₱850.00", "Tagakaolo — Malalag, Sta. Maria", "Clothing", R.drawable.malong));
-        allProducts.add(new Product("Dagmay cloth", "₱2,500.00", "Tagakaolo — Malalag, Sta. Maria", "Clothing", R.drawable.dagmayy));
-        allProducts.add(new Product("Embroidered garments", "₱1,800.00", "Mandaya — Coastal areas", "Clothing", R.drawable.garments));
-        allProducts.add(new Product("Tangkulo (head cloth)", "₱750.00", "Bagobo Tagabawa", "Clothing", R.drawable.tangkuloo));
-        allProducts.add(new Product("Ukir (wood carving)", "₱3,500.00", "Bagobo Tagabawa", "Crafts", R.drawable.ukir));
-        allProducts.add(new Product("Panday (metal crafting)", "₱4,200.00", "Bagobo Tagabawa", "Crafts", R.drawable.panday));
-        allProducts.add(new Product("Bukag (basket weaving)", "₱650.00", "Tagakaolo", "Crafts", R.drawable.bukag));
-        allProducts.add(new Product("Banig (mat weaving)", "₱1,200.00", "Tagakaolo", "Crafts", R.drawable.banig));
-        allProducts.add(new Product("Suwat (comb)", "₱150.00", "Tagakaolo", "Accessories", R.drawable.suwat));
-        allProducts.add(new Product("Balyog (necklace)", "₱550.00", "Tagakaolo", "Accessories", R.drawable.balyog));
-        allProducts.add(new Product("Sinubla (beaded items)", "₱650.00", "Bagobo Tagabawa", "Accessories", R.drawable.sinubla));
-        allProducts.add(new Product("Ginamay (beaded belt)", "₱1,100.00", "Bagobo Tagabawa", "Accessories", R.drawable.ginamay));
+        allProducts.add(new Product("Ompák", "₱1,500.00", "Bagobo Tagabawa — Bansalan, Digos City", "Clothing", R.drawable.ompak,
+                "Artisan Handcrafted", "Abaca fiber, Natural dyes", "Bagobo Tagabawa ancestral patterns"));
+        allProducts.add(new Product("Sonnod", "₱1,200.00", "Bagobo Tagabawa — Bansalan, Digos City", "Clothing", R.drawable.sonnod,
+                "Master Weaver", "Handwoven cotton, Brass bells", "Traditional celebration attire"));
+        allProducts.add(new Product("Inabal (Cloth)", "₱2,800.00", "Bagobo Tagabawa — Bansalan, Digos City", "Clothing", R.drawable.inaball,
+                "Traditional Weavers", "Hand-dyed Abaca", "Sacred Bagobo geometric designs"));
+        allProducts.add(new Product("Bong an tidas", "₱950.00", "Tagakaolo — Malalag, Sta. Maria", "Clothing", R.drawable.bongantidas,
+                "Local Community", "Traditional fabric", "Tagakaolo ethnic symbols"));
+        allProducts.add(new Product("Malong / Patadyong", "₱850.00", "Tagakaolo — Malalag, Sta. Maria", "Clothing", R.drawable.malong,
+                "Indigenous Artists", "Woven cotton", "Mindanao daily life and utility"));
+        allProducts.add(new Product("Dagmay cloth", "₱2,500.00", "Tagakaolo — Malalag, Sta. Maria", "Clothing", R.drawable.dagmayy,
+                "Elder Weavers", "Manila Hemp (Abaca)", "Dream-inspired Mandaya patterns"));
+        allProducts.add(new Product("Embroidered garments", "₱1,800.00", "Mandaya — Coastal areas", "Clothing", R.drawable.garments,
+                "Coastal Artisans", "Silk thread, Cotton base", "Nature and spirit world motifs"));
+        allProducts.add(new Product("Tangkulo (head cloth)", "₱750.00", "Bagobo Tagabawa", "Clothing", R.drawable.tangkuloo,
+                "Tribe Leaders", "Natural fiber, Embroidery", "Leadership and status symbols"));
+        allProducts.add(new Product("Ukir (wood carving)", "₱3,500.00", "Bagobo Tagabawa", "Crafts", R.drawable.ukir,
+                "Master Carvers", "Molave wood", "Islamic and indigenous floral art"));
+        allProducts.add(new Product("Panday (metal crafting)", "₱4,200.00", "Bagobo Tagabawa", "Crafts", R.drawable.panday,
+                "Traditional Blacksmiths", "Brass, Iron", "Warrior culture and bravery"));
+        allProducts.add(new Product("Bukag (basket weaving)", "₱650.00", "Tagakaolo", "Crafts", R.drawable.bukag,
+                "Basket Weavers Guild", "Bamboo, Rattan", "Agricultural harvest tradition"));
+        allProducts.add(new Product("Banig (mat weaving)", "₱1,200.00", "Tagakaolo", "Crafts", R.drawable.banig,
+                "Community Weavers", "Dried Pandan leaves", "Home hospitality and kinship"));
+        allProducts.add(new Product("Suwat (comb)", "₱150.00", "Tagakaolo", "Accessories", R.drawable.suwat,
+                "Wood Artisans", "Bamboo, Beads", "Beauty and grooming rituals"));
+        allProducts.add(new Product("Balyog (necklace)", "₱550.00", "Tagakaolo", "Accessories", R.drawable.balyog,
+                "Beadwork Specialists", "Seed beads, Horsehair", "Ceremonial protection charms"));
+        allProducts.add(new Product("Sinubla (beaded items)", "₱650.00", "Bagobo Tagabawa", "Accessories", R.drawable.sinubla,
+                "Traditional Bead-makers", "Glass beads, Thread", "Colors of the Southern sky"));
+        allProducts.add(new Product("Ginamay (beaded belt)", "₱1,100.00", "Bagobo Tagabawa", "Accessories", R.drawable.ginamay,
+                "Cultural Craft-makers", "Beads, Leather", "Strength and artisanal endurance"));
     }
 
     private void displayProducts(String category, String query) {
@@ -319,7 +341,8 @@ public class HomeFragment extends Fragment {
                         });
                     }
 
-                    productView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(p.name, p.price, p.description, p.imageResource)));
+                    productView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(
+                            p.name, p.price, p.description, p.imageResource, p.artisan, p.materials, p.inspiration)));
 
                     productListContainer.addView(productView);
                 }
@@ -343,14 +366,17 @@ public class HomeFragment extends Fragment {
     }
 
     private static class Product {
-        String name, price, description, category;
+        String name, price, description, category, artisan, materials, inspiration;
         int imageResource;
-        Product(String name, String price, String description, String category, int imageResource) {
+        Product(String name, String price, String description, String category, int imageResource, String artisan, String materials, String inspiration) {
             this.name = name;
             this.price = price;
             this.description = description;
             this.category = category;
             this.imageResource = imageResource;
+            this.artisan = artisan;
+            this.materials = materials;
+            this.inspiration = inspiration;
         }
     }
 

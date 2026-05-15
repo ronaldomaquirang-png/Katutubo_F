@@ -129,6 +129,9 @@ public class ProfileFragment extends Fragment {
                 "Bagobo Tagabawa — Bansalan, Digos City",
                 "Tagakaolo"
         };
+        String[] artisans = {"Artisan Handcrafted", "Master Weaver", "Traditional Weavers", "Basket Weavers Guild"};
+        String[] materials = {"Abaca fiber", "Handwoven cotton", "Hand-dyed Abaca", "Bamboo, Rattan"};
+        String[] inspirations = {"Ancestral patterns", "Celebration attire", "Sacred designs", "Harvest tradition"};
 
         for (int i = 0; i < names.length; i++) {
             View itemView = inflater.inflate(R.layout.item_discounted_product, promoContainer, false);
@@ -142,6 +145,9 @@ public class ProfileFragment extends Fragment {
             final String finalPrice = prices[i];
             final String finalDesc = descriptions[i];
             final int finalImage = images[i];
+            final String finalArtisan = artisans[i];
+            final String finalMaterial = materials[i];
+            final String finalInspiration = inspirations[i];
 
             if (img != null) img.setImageResource(images[i]);
             if (name != null) name.setText(names[i]);
@@ -152,7 +158,7 @@ public class ProfileFragment extends Fragment {
             }
             if (tag != null) tag.setText("-50%");
 
-            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(finalName, finalPrice, finalDesc, finalImage)));
+            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(finalName, finalPrice, finalDesc, finalImage, finalArtisan, finalMaterial, finalInspiration)));
 
             promoContainer.addView(itemView);
         }
@@ -189,7 +195,7 @@ public class ProfileFragment extends Fragment {
             if (orig != null) orig.setVisibility(View.GONE);
             if (tag != null) tag.setVisibility(View.GONE);
 
-            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(p.title, p.price, p.description, p.imageResource)));
+            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(p.title, p.price, p.description, p.imageResource, "Traditional Artisan", "Natural Materials", "Indigenous Culture")));
 
             recentViewsContainer.addView(itemView);
         }
@@ -211,6 +217,9 @@ public class ProfileFragment extends Fragment {
                 "Tagakaolo",
                 "Tagakaolo"
         };
+        String[] artisans = {"Local Community", "Indigenous Artists", "Elder Weavers", "Wood Artisans", "Beadwork Specialists"};
+        String[] materials = {"Traditional fabric", "Woven cotton", "Manila Hemp (Abaca)", "Bamboo, Beads", "Seed beads"};
+        String[] inspirations = {"Tribal symbols", "Daily utility", "Mandaya dreams", "Grooming rituals", "Protection charms"};
 
         for (int i = 0; i < names.length; i++) {
             View itemView = inflater.inflate(R.layout.item_discounted_product, recContainer, false);
@@ -224,6 +233,9 @@ public class ProfileFragment extends Fragment {
             final String finalPrice = prices[i];
             final String finalDesc = descriptions[i];
             final int finalImage = images[i];
+            final String finalArtisan = artisans[i];
+            final String finalMaterial = materials[i];
+            final String finalInspiration = inspirations[i];
 
             if (img != null) img.setImageResource(images[i]);
             if (name != null) name.setText(names[i]);
@@ -231,7 +243,7 @@ public class ProfileFragment extends Fragment {
             if (orig != null) orig.setVisibility(View.GONE);
             if (tag != null) tag.setVisibility(View.GONE);
 
-            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(finalName, finalPrice, finalDesc, finalImage)));
+            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(finalName, finalPrice, finalDesc, finalImage, finalArtisan, finalMaterial, finalInspiration)));
 
             recContainer.addView(itemView);
         }

@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ProductDetailFragment extends Fragment {
 
-    private String title, price, description;
+    private String title, price, description, artisan, materials, origin;
     private int imageResource;
 
     public ProductDetailFragment() {
@@ -28,12 +28,19 @@ public class ProductDetailFragment extends Fragment {
     }
 
     public static ProductDetailFragment newInstance(String title, String price, String description, int imageResource) {
+        return newInstance(title, price, description, imageResource, null, null, null);
+    }
+
+    public static ProductDetailFragment newInstance(String title, String price, String description, int imageResource, String artisan, String materials, String origin) {
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         args.putString("price", price);
         args.putString("description", description);
         args.putInt("imageResource", imageResource);
+        args.putString("artisan", artisan);
+        args.putString("materials", materials);
+        args.putString("origin", origin);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,6 +53,9 @@ public class ProductDetailFragment extends Fragment {
             price = getArguments().getString("price");
             description = getArguments().getString("description");
             imageResource = getArguments().getInt("imageResource");
+            artisan = getArguments().getString("artisan");
+            materials = getArguments().getString("materials");
+            origin = getArguments().getString("origin");
 
             // Add to Recent Views
             RecentViewManager.getInstance().addProduct(
@@ -62,6 +72,9 @@ public class ProductDetailFragment extends Fragment {
         TextView titleTxt = view.findViewById(R.id.productTitle);
         TextView priceTxt = view.findViewById(R.id.productPrice);
         TextView descTxt = view.findViewById(R.id.productDescription);
+        TextView artisanTxt = view.findViewById(R.id.productArtisan);
+        TextView materialsTxt = view.findViewById(R.id.productMaterials);
+        TextView originTxt = view.findViewById(R.id.productOrigin);
         ImageView productImg = view.findViewById(R.id.productImage);
         ImageButton backBtn = view.findViewById(R.id.backBtn);
         Button addToCartBtn = view.findViewById(R.id.btn_add_to_cart);
@@ -71,6 +84,10 @@ public class ProductDetailFragment extends Fragment {
         titleTxt.setText(title);
         priceTxt.setText(price);
         descTxt.setText(description);
+        if (artisanTxt != null) artisanTxt.setText(artisan != null ? artisan : "Traditional Artisan");
+        if (materialsTxt != null) materialsTxt.setText(materials != null ? materials : "Natural materials");
+        if (originTxt != null) originTxt.setText(origin != null ? origin : "Philippines");
+
         if (imageResource != 0) {
             productImg.setImageResource(imageResource);
         }

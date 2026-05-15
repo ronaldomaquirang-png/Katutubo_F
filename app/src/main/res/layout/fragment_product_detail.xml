@@ -106,6 +106,83 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
+                        android:text="Detailed Information"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="12dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="8dp">
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Artisan"
+                                android:textColor="#888888"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/productArtisan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Katutubo Artisans"
+                                android:textColor="@color/katutubo_brown"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="8dp">
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Materials"
+                                android:textColor="#888888"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/productMaterials"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Natural fibers"
+                                android:textColor="@color/katutubo_brown"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="8dp">
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Origin"
+                                android:textColor="#888888"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:id="@+id/productOrigin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Philippines"
+                                android:textColor="@color/katutubo_brown"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:text="Description"
                         android:textColor="@color/black"
                         android:textStyle="bold"
