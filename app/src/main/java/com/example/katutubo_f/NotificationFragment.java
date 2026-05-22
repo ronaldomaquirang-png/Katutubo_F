@@ -32,34 +32,31 @@ public class NotificationFragment extends Fragment {
         bottomNavigationView.setSelectedItemId(R.id.nav_notifications);
         BadgeHelper.setupBadges(bottomNavigationView);
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                
-                if (id == R.id.nav_home) {
-                    switchFragment(new HomeFragment());
-                    return true;
-                } else if (id == R.id.nav_cart) {
-                    switchFragment(new CartFragment());
-                    return true;
-                } else if (id == R.id.nav_notifications) {
-                    return true;
-                } else if (id == R.id.nav_profile) {
-                    switchFragment(new ProfileFragment());
-                    return true;
-                }
-                return false;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            
+            if (id == R.id.nav_home) {
+                switchFragmentNav(new HomeFragment());
+                return true;
+            } else if (id == R.id.nav_cart) {
+                switchFragmentNav(new CartFragment());
+                return true;
+            } else if (id == R.id.nav_notifications) {
+                return true;
+            } else if (id == R.id.nav_profile) {
+                switchFragmentNav(new ProfileFragment());
+                return true;
             }
+            return false;
         });
 
         // Load orders as notifications
-        List<OrderManager.Order> orders = OrderManager.getInstance().getOrders();
+        List<Order> orders = OrderManager.getInstance(requireContext()).getOrders();
         if (orders.isEmpty()) {
             tvEmpty.setVisibility(View.VISIBLE);
         } else {
             tvEmpty.setVisibility(View.GONE);
-            for (OrderManager.Order order : orders) {
+            for (Order order : orders) {
                 addNotificationItem(notificationContainer, order);
             }
         }
@@ -67,7 +64,7 @@ public class NotificationFragment extends Fragment {
         return view;
     }
 
-    private void addNotificationItem(LinearLayout container, OrderManager.Order order) {
+    private void addNotificationItem(LinearLayout container, Order order) {
         LinearLayout itemLayout = new LinearLayout(getContext());
         itemLayout.setOrientation(LinearLayout.VERTICAL);
         itemLayout.setPadding(40, 40, 40, 40);
@@ -81,9 +78,9 @@ public class NotificationFragment extends Fragment {
         itemLayout.setFocusable(true);
 
         TextView title = new TextView(getContext());
-        title.setText("📦 " + order.status);
+        title.setText(getString(R.string.order_status_format, order.status));
         title.setTextSize(18);
-        title.setTextColor(getResources().getColor(R.color.katutubo_brown));
+        title.setTextColor(androidx.core.content.ContextCompat.getColor(getContext(), R.color.katutubo_brown));
         title.setTypeface(null, android.graphics.Typeface.BOLD);
 
         TextView details = new TextView(getContext());
@@ -107,11 +104,17 @@ public class NotificationFragment extends Fragment {
             if ("Cancelled".equalsIgnoreCase(order.status)) {
                 switchFragment(CancellationDetailFragment.newInstance(order.orderId));
             } else {
-                // Handle other status clicks if needed
+                switchFragment(OrderDetailFragment.newInstance(order.orderId));
             }
         });
         
         container.addView(itemLayout);
+    }
+
+    private void switchFragmentNav(Fragment fragment) {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 
     private void switchFragment(Fragment fragment) {

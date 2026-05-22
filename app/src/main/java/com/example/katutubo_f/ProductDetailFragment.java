@@ -2,7 +2,6 @@ package com.example.katutubo_f;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class ProductDetailFragment extends Fragment {
 
@@ -64,8 +65,8 @@ public class ProductDetailFragment extends Fragment {
             history = getArguments().getString("history");
 
             // Add to Recent Views
-            RecentViewManager.getInstance().addProduct(
-                new RecentViewManager.Product(title, price, description, imageResource)
+            RecentViewManager.getInstance(requireContext()).addProduct(
+                new RecentProduct(title, price, description, imageResource)
             );
         }
     }
@@ -91,21 +92,28 @@ public class ProductDetailFragment extends Fragment {
         titleTxt.setText(title);
         priceTxt.setText(price);
         descTxt.setText(description);
-        if (historyTxt != null) historyTxt.setText(history != null ? history : "This product carries the rich heritage of its makers, passed down through generations as a symbol of cultural identity and traditional craftsmanship.");
-        if (artisanTxt != null) artisanTxt.setText(artisan != null ? artisan : "Traditional Artisan");
-        if (materialsTxt != null) materialsTxt.setText(materials != null ? materials : "Natural materials");
-        if (originTxt != null) originTxt.setText(origin != null ? origin : "Philippines");
+        
+        if (historyTxt != null) {
+            historyTxt.setText(Objects.requireNonNullElse(history, "This product carries the rich heritage of its makers, passed down through generations as a symbol of cultural identity and traditional craftsmanship."));
+        }
+        if (artisanTxt != null) {
+            artisanTxt.setText(Objects.requireNonNullElse(artisan, "Traditional Artisan"));
+        }
+        if (materialsTxt != null) {
+            materialsTxt.setText(Objects.requireNonNullElse(materials, "Natural materials"));
+        }
+        if (originTxt != null) {
+            originTxt.setText(Objects.requireNonNullElse(origin, "Philippines"));
+        }
 
         if (imageResource != 0) {
             productImg.setImageResource(imageResource);
         }
 
         if (btnFavorite != null) {
-            FavoriteManager.Product favProduct = new FavoriteManager.Product(title, price, description, imageResource);
-            btnFavorite.setChecked(FavoriteManager.getInstance().isFavorite(favProduct));
-            btnFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                FavoriteManager.getInstance().toggleFavorite(favProduct);
-            });
+            FavoriteProduct favProduct = new FavoriteProduct(title, price, description, imageResource);
+            btnFavorite.setChecked(FavoriteManager.getInstance(requireContext()).isFavorite(favProduct));
+            btnFavorite.setOnCheckedChangeListener((buttonView, isChecked) -> FavoriteManager.getInstance(requireContext()).toggleFavorite(favProduct));
         }
 
         backBtn.setOnClickListener(v -> getParentFragmentManager().popBackStack());
@@ -119,13 +127,13 @@ public class ProductDetailFragment extends Fragment {
                     getParentFragmentManager().popBackStack();
                     return true;
                 } else if (id == R.id.nav_cart) {
-                    switchFragment(new CartFragment());
+                    switchFragmentNav(new CartFragment());
                     return true;
                 } else if (id == R.id.nav_notifications) {
-                    switchFragment(new NotificationFragment());
+                    switchFragmentNav(new NotificationFragment());
                     return true;
                 } else if (id == R.id.nav_profile) {
-                    switchFragment(new ProfileFragment());
+                    switchFragmentNav(new ProfileFragment());
                     return true;
                 }
                 return false;
@@ -136,8 +144,8 @@ public class ProductDetailFragment extends Fragment {
             if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                 showLoginPrompt("add items to your cart");
             } else {
-                CartManager.getInstance().addToCart(
-                    new CartManager.CartItem(title, price, imageResource, 1)
+                CartManager.getInstance(requireContext()).addToCart(
+                    new CartItem(title, price, imageResource, 1)
                 );
                 
                 // Update badges on the BottomNavigationView to reflect the change
@@ -151,8 +159,8 @@ public class ProductDetailFragment extends Fragment {
             if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                 showLoginPrompt("proceed with your purchase");
             } else {
-                CartManager.getInstance().clearCart();
-                CartManager.getInstance().addToCart(new CartManager.CartItem(title, price, imageResource, 1));
+                CartManager.getInstance(requireContext()).clearCart();
+                CartManager.getInstance(requireContext()).addToCart(new CartItem(title, price, imageResource, 1));
                 
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new CheckoutFragment())
@@ -164,10 +172,9 @@ public class ProductDetailFragment extends Fragment {
         return view;
     }
 
-    private void switchFragment(Fragment fragment) {
+    private void switchFragmentNav(Fragment fragment) {
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
                 .commit();
     }
 

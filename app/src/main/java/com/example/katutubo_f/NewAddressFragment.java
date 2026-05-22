@@ -19,8 +19,8 @@ import androidx.fragment.app.Fragment;
 
 public class NewAddressFragment extends Fragment {
 
-    private EditText etFullName, etPhoneNumber, etPostalCode, etStreetAddress;
-    private TextView btnLabelWork, btnLabelHome, tvRegion;
+    private EditText etFullName, etPhoneNumber, etPostalCode, etStreetAddress, etRegion;
+    private TextView btnLabelWork, btnLabelHome;
     private Button btnSubmit;
     private String selectedLabel = "";
 
@@ -36,7 +36,7 @@ public class NewAddressFragment extends Fragment {
         etPhoneNumber = view.findViewById(R.id.et_phone_number);
         etPostalCode = view.findViewById(R.id.et_postal_code);
         etStreetAddress = view.findViewById(R.id.et_street_address);
-        tvRegion = view.findViewById(R.id.tv_region);
+        etRegion = view.findViewById(R.id.et_region);
         btnLabelWork = view.findViewById(R.id.btn_label_work);
         btnLabelHome = view.findViewById(R.id.btn_label_home);
         btnSubmit = view.findViewById(R.id.btn_submit);
@@ -62,13 +62,7 @@ public class NewAddressFragment extends Fragment {
         etPhoneNumber.addTextChangedListener(textWatcher);
         etPostalCode.addTextChangedListener(textWatcher);
         etStreetAddress.addTextChangedListener(textWatcher);
-
-        view.findViewById(R.id.btn_select_region).setOnClickListener(v -> {
-            // Simplified region selection
-            tvRegion.setText("Metro Manila, Quezon City, Batasan Hills");
-            tvRegion.setTextColor(Color.BLACK);
-            validateForm();
-        });
+        etRegion.addTextChangedListener(textWatcher);
 
         btnSubmit.setOnClickListener(v -> {
             Toast.makeText(getContext(), "Address saved successfully!", Toast.LENGTH_SHORT).show();
@@ -99,7 +93,7 @@ public class NewAddressFragment extends Fragment {
                 !etPhoneNumber.getText().toString().trim().isEmpty() &&
                 !etPostalCode.getText().toString().trim().isEmpty() &&
                 !etStreetAddress.getText().toString().trim().isEmpty() &&
-                !tvRegion.getText().toString().equals("Region, Province, City, Barangay") &&
+                !etRegion.getText().toString().trim().isEmpty() &&
                 !selectedLabel.isEmpty();
 
         if (isValid) {

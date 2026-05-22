@@ -1,10 +1,8 @@
 package com.example.katutubo_f;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,8 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import java.util.List;
+import java.util.Locale;
 
 public class CartFragment extends Fragment {
 
@@ -45,61 +43,68 @@ public class CartFragment extends Fragment {
         bottomNavigationView.setSelectedItemId(R.id.nav_cart);
         BadgeHelper.setupBadges(bottomNavigationView);
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.nav_home) {
-                    switchFragment(new HomeFragment());
-                    return true;
-                } else if (id == R.id.nav_cart) {
-                    return true;
-                } else if (id == R.id.nav_notifications) {
-                    switchFragment(new NotificationFragment());
-                    return true;
-                } else if (id == R.id.nav_profile) {
-                    switchFragment(new ProfileFragment());
-                    return true;
-                }
-                return false;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.nav_home) {
+                switchFragmentNav(new HomeFragment());
+                return true;
+            } else if (id == R.id.nav_cart) {
+                return true;
+            } else if (id == R.id.nav_notifications) {
+                switchFragmentNav(new NotificationFragment());
+                return true;
+            } else if (id == R.id.nav_profile) {
+                switchFragmentNav(new ProfileFragment());
+                return true;
             }
+            return false;
         });
 
-        loadCartItems();
+        loadCartItems(view);
         setupPromotions(view);
         setupRecentViews(view);
         setupRecommendations(view);
 
-        btnCheckout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (CartManager.getInstance().getCartItems().isEmpty()) {
-                    return;
-                }
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new CheckoutFragment())
-                        .addToBackStack(null)
-                        .commit();
+        btnCheckout.setOnClickListener(v -> {
+            if (CartManager.getInstance(requireContext()).getCartItems().isEmpty()) {
+                return;
             }
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new CheckoutFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
         return view;
     }
 
-    private void loadCartItems() {
+    private void loadCartItems(View rootView) {
         cartContainer.removeAllViews();
-        List<CartManager.CartItem> items = CartManager.getInstance().getCartItems();
+        List<CartItem> items = CartManager.getInstance(requireContext()).getCartItems();
         
+        View view = rootView != null ? rootView : getView();
+        if (view != null) {
+            View promoSection = view.findViewById(R.id.promotion_section);
+            View recSection = view.findViewById(R.id.recommendations_section);
+            if (items.isEmpty()) {
+                if (promoSection != null) promoSection.setVisibility(View.GONE);
+                if (recSection != null) recSection.setVisibility(View.GONE);
+            } else {
+                if (promoSection != null) promoSection.setVisibility(View.VISIBLE);
+                if (recSection != null) recSection.setVisibility(View.VISIBLE);
+            }
+        }
+
         if (items.isEmpty()) {
             tvEmptyCart.setVisibility(View.VISIBLE);
-            if (tvSubtotal != null) tvSubtotal.setText("₱0.00");
-            if (tvShippingFee != null) tvShippingFee.setText("₱0.00");
-            tvTotalAmount.setText("₱0.00");
+            if (tvSubtotal != null) tvSubtotal.setText(R.string.price_zero);
+            if (tvShippingFee != null) tvShippingFee.setText(R.string.price_zero);
+            tvTotalAmount.setText(R.string.price_zero);
             return;
         }
 
         tvEmptyCart.setVisibility(View.GONE);
-        for (CartManager.CartItem item : items) {
+        for (CartItem item : items) {
             View itemView = getLayoutInflater().inflate(R.layout.item_cart, cartContainer, false);
             
             ImageView img = itemView.findViewById(R.id.cart_item_image);
@@ -113,33 +118,33 @@ public class CartFragment extends Fragment {
             img.setImageResource(item.imageResource);
             title.setText(item.title);
             price.setText(item.price);
-            qty.setText(String.valueOf(item.quantity));
+            qty.setText(String.format(Locale.getDefault(), "%d", item.quantity));
 
             btnPlus.setOnClickListener(v -> {
-                CartManager.getInstance().incrementQuantity(item);
-                loadCartItems();
+                CartManager.getInstance(requireContext()).incrementQuantity(item);
+                loadCartItems(rootView);
             });
 
             btnMinus.setOnClickListener(v -> {
-                CartManager.getInstance().decrementQuantity(item);
-                loadCartItems();
+                CartManager.getInstance(requireContext()).decrementQuantity(item);
+                loadCartItems(rootView);
             });
 
             btnDelete.setOnClickListener(v -> {
-                CartManager.getInstance().removeItem(item);
-                loadCartItems();
+                CartManager.getInstance(requireContext()).removeItem(item);
+                loadCartItems(rootView);
             });
             
             cartContainer.addView(itemView);
         }
 
-        double subtotal = CartManager.getInstance().getTotalAmount();
-        double shipping = CartManager.getInstance().getShippingFee();
-        double total = CartManager.getInstance().getGrandTotal();
+        double subtotal = CartManager.getInstance(requireContext()).getTotalAmount();
+        double shipping = CartManager.getInstance(requireContext()).getShippingFee();
+        double total = CartManager.getInstance(requireContext()).getGrandTotal();
 
-        if (tvSubtotal != null) tvSubtotal.setText(String.format("₱%,.2f", subtotal));
-        if (tvShippingFee != null) tvShippingFee.setText(String.format("₱%,.2f", shipping));
-        tvTotalAmount.setText(String.format("₱%,.2f", total));
+        if (tvSubtotal != null) tvSubtotal.setText(String.format(Locale.getDefault(), "₱%,.2f", subtotal));
+        if (tvShippingFee != null) tvShippingFee.setText(String.format(Locale.getDefault(), "₱%,.2f", shipping));
+        tvTotalAmount.setText(String.format(Locale.getDefault(), "₱%,.2f", total));
         
         // Update badges to reflect quantity changes
         if (bottomNavigationView != null) {
@@ -150,6 +155,12 @@ public class CartFragment extends Fragment {
     private void setupPromotions(View view) {
         LinearLayout promotionSection = view.findViewById(R.id.promotion_section);
         LinearLayout promoContainer = view.findViewById(R.id.promo_container);
+        
+        if (CartManager.getInstance(requireContext()).getCartItems().isEmpty()) {
+            if (promotionSection != null) promotionSection.setVisibility(View.GONE);
+            return;
+        }
+        
         if (promotionSection != null) promotionSection.setVisibility(View.VISIBLE);
         if (promoContainer == null) return;
         promoContainer.removeAllViews();
@@ -206,7 +217,7 @@ public class CartFragment extends Fragment {
         
         if (recentViewsSection == null || recentViewsContainer == null) return;
 
-        List<RecentViewManager.Product> recentProducts = RecentViewManager.getInstance().getRecentProducts();
+        List<RecentProduct> recentProducts = RecentViewManager.getInstance(requireContext()).getRecentProducts();
         
         if (recentProducts == null || recentProducts.isEmpty()) {
             recentViewsSection.setVisibility(View.GONE);
@@ -217,7 +228,7 @@ public class CartFragment extends Fragment {
         recentViewsContainer.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(getContext());
 
-        for (RecentViewManager.Product p : recentProducts) {
+        for (RecentProduct p : recentProducts) {
             View itemView = inflater.inflate(R.layout.item_discounted_product, recentViewsContainer, false);
             ImageView img = itemView.findViewById(R.id.discount_image);
             TextView name = itemView.findViewById(R.id.discount_name);
@@ -240,6 +251,12 @@ public class CartFragment extends Fragment {
     private void setupRecommendations(View view) {
         LinearLayout recommendationsSection = view.findViewById(R.id.recommendations_section);
         LinearLayout recContainer = view.findViewById(R.id.recommendations_container);
+        
+        if (CartManager.getInstance(requireContext()).getCartItems().isEmpty()) {
+            if (recommendationsSection != null) recommendationsSection.setVisibility(View.GONE);
+            return;
+        }
+
         if (recommendationsSection != null) recommendationsSection.setVisibility(View.VISIBLE);
         if (recContainer == null) return;
         recContainer.removeAllViews();
@@ -288,9 +305,16 @@ public class CartFragment extends Fragment {
         }
     }
 
+    private void switchFragmentNav(Fragment fragment) {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
     private void switchFragment(Fragment fragment) {
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 }

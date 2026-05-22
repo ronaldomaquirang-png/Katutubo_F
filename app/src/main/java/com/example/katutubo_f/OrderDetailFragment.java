@@ -52,8 +52,8 @@ public class OrderDetailFragment extends Fragment {
 
         btnBack.setOnClickListener(v -> getParentFragmentManager().popBackStack());
 
-        OrderManager.Order order = null;
-        for (OrderManager.Order o : OrderManager.getInstance().getOrders()) {
+        Order order = null;
+        for (Order o : OrderManager.getInstance(requireContext()).getOrders()) {
             if (o.orderId.equals(orderId)) {
                 order = o;
                 break;
@@ -61,7 +61,7 @@ public class OrderDetailFragment extends Fragment {
         }
 
         if (order != null) {
-            final OrderManager.Order currentOrder = order;
+            final Order currentOrder = order;
             tvStatus.setText(order.status);
             tvOrderId.setText("Order #" + order.orderId);
             tvOrderTime.setText("Placed on " + order.timestamp);
@@ -79,7 +79,7 @@ public class OrderDetailFragment extends Fragment {
 
             itemsContainer.removeAllViews();
             if (order.items != null && !order.items.isEmpty()) {
-                for (OrderManager.OrderItem item : order.items) {
+                for (OrderItem item : order.items) {
                     View itemView = inflater.inflate(R.layout.item_cancelled_product, itemsContainer, false);
                     
                     ImageView ivProductImage = itemView.findViewById(R.id.iv_product_image);
@@ -100,14 +100,14 @@ public class OrderDetailFragment extends Fragment {
 
             btnAction.setOnClickListener(v -> {
                 if (currentOrder.items != null && !currentOrder.items.isEmpty()) {
-                    for (OrderManager.OrderItem item : currentOrder.items) {
-                        CartManager.CartItem cartItem = new CartManager.CartItem(
+                    for (OrderItem item : currentOrder.items) {
+                        CartItem cartItem = new CartItem(
                                 item.name,
                                 item.price,
                                 item.imageResId,
                                 item.quantity
                         );
-                        CartManager.getInstance().addToCart(cartItem);
+                        CartManager.getInstance(requireContext()).addToCart(cartItem);
                     }
                     Toast.makeText(getContext(), "Items added to cart", Toast.LENGTH_SHORT).show();
                     

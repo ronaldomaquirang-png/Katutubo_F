@@ -1,19 +1,20 @@
 package com.example.katutubo_f;
 
+import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartManager {
     private static CartManager instance;
-    private List<CartItem> cartItems;
+    private final List<CartItem> cartItems;
 
-    private CartManager() {
+    private CartManager(Context context) {
         cartItems = new ArrayList<>();
     }
 
-    public static synchronized CartManager getInstance() {
+    public static synchronized CartManager getInstance(Context context) {
         if (instance == null) {
-            instance = new CartManager();
+            instance = new CartManager(context.getApplicationContext());
         }
         return instance;
     }
@@ -71,19 +72,5 @@ public class CartManager {
 
     public void clearCart() {
         cartItems.clear();
-    }
-
-    public static class CartItem {
-        public String title;
-        public String price;
-        public int imageResource;
-        public int quantity;
-
-        public CartItem(String title, String price, int imageResource, int quantity) {
-            this.title = title;
-            this.price = price;
-            this.imageResource = imageResource;
-            this.quantity = quantity;
-        }
     }
 }

@@ -2,7 +2,6 @@ package com.example.katutubo_f;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,13 +45,11 @@ public class ProfileFragment extends Fragment {
             logoutBtn.setVisibility(View.GONE);
         }
 
-        view.findViewById(R.id.btn_login_profile).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
-        });
+        view.findViewById(R.id.btn_login_profile).setOnClickListener(v -> 
+            startActivity(new Intent(getActivity(), LoginActivity.class)));
 
-        view.findViewById(R.id.btn_signup_profile).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), SignUpActivity.class));
-        });
+        view.findViewById(R.id.btn_signup_profile).setOnClickListener(v -> 
+            startActivity(new Intent(getActivity(), SignUpActivity.class)));
 
         view.findViewById(R.id.to_pay).setOnClickListener(v -> 
             switchFragment(OrdersFragment.newInstance("To Pay")));
@@ -83,7 +80,12 @@ public class ProfileFragment extends Fragment {
 
         logoutBtn.setOnClickListener(v -> {
             mAuth.signOut();
-            switchFragment(new ProfileFragment());
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            if (getActivity() != null) {
+                getActivity().finish();
+            }
         });
 
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation);
@@ -93,13 +95,13 @@ public class ProfileFragment extends Fragment {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
-                switchFragment(new HomeFragment());
+                switchFragmentNav(new HomeFragment());
                 return true;
             } else if (id == R.id.nav_cart) {
-                switchFragment(new CartFragment());
+                switchFragmentNav(new CartFragment());
                 return true;
             } else if (id == R.id.nav_notifications) {
-                switchFragment(new NotificationFragment());
+                switchFragmentNav(new NotificationFragment());
                 return true;
             }
             return false;
@@ -170,7 +172,7 @@ public class ProfileFragment extends Fragment {
         
         if (recentViewsSection == null || recentViewsContainer == null) return;
 
-        List<RecentViewManager.Product> recentProducts = RecentViewManager.getInstance().getRecentProducts();
+        List<RecentProduct> recentProducts = RecentViewManager.getInstance(requireContext()).getRecentProducts();
         
         if (recentProducts == null || recentProducts.isEmpty()) {
             recentViewsSection.setVisibility(View.GONE);
@@ -181,7 +183,7 @@ public class ProfileFragment extends Fragment {
         recentViewsContainer.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(getContext());
 
-        for (RecentViewManager.Product p : recentProducts) {
+        for (RecentProduct p : recentProducts) {
             View itemView = inflater.inflate(R.layout.item_discounted_product, recentViewsContainer, false);
             ImageView img = itemView.findViewById(R.id.discount_image);
             TextView name = itemView.findViewById(R.id.discount_name);
@@ -261,8 +263,8 @@ public class ProfileFragment extends Fragment {
         int toReceiveCount = 0;
         int toRateCount = 0;
 
-        List<OrderManager.Order> orders = OrderManager.getInstance().getOrders();
-        for (OrderManager.Order order : orders) {
+        List<Order> orders = OrderManager.getInstance(requireContext()).getOrders();
+        for (Order order : orders) {
             if (order.status.equalsIgnoreCase("To Pay")) toPayCount++;
             else if (order.status.equalsIgnoreCase("To Ship")) toShipCount++;
             else if (order.status.equalsIgnoreCase("To Receive")) toReceiveCount++;
@@ -285,6 +287,12 @@ public class ProfileFragment extends Fragment {
                 badge.setVisibility(View.GONE);
             }
         }
+    }
+
+    private void switchFragmentNav(Fragment fragment) {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 
     private void switchFragment(Fragment fragment) {

@@ -61,10 +61,10 @@ public class OrdersFragment extends Fragment {
 
     private void loadOrders() {
         ordersContainer.removeAllViews();
-        List<OrderManager.Order> allOrders = OrderManager.getInstance().getOrders();
+        List<Order> allOrders = OrderManager.getInstance(requireContext()).getOrders();
         boolean hasItems = false;
 
-        for (OrderManager.Order order : allOrders) {
+        for (Order order : allOrders) {
             // Flexible matching for status
             if (order.status.equalsIgnoreCase(title) || 
                 (title.equals("Orders") && !order.status.isEmpty()) ||
@@ -84,7 +84,7 @@ public class OrdersFragment extends Fragment {
         }
     }
 
-    private void addOrderView(OrderManager.Order order) {
+    private void addOrderView(Order order) {
         View orderView = getLayoutInflater().inflate(R.layout.item_order, ordersContainer, false);
 
         TextView tvId = orderView.findViewById(R.id.order_id);
@@ -125,16 +125,16 @@ public class OrdersFragment extends Fragment {
         ordersContainer.addView(orderView);
     }
 
-    private void handleBuyAgain(OrderManager.Order order) {
+    private void handleBuyAgain(Order order) {
         if (order.items != null && !order.items.isEmpty()) {
-            for (OrderManager.OrderItem item : order.items) {
-                CartManager.CartItem cartItem = new CartManager.CartItem(
+            for (OrderItem item : order.items) {
+                CartItem cartItem = new CartItem(
                         item.name,
                         item.price,
                         item.imageResId,
                         item.quantity
                 );
-                CartManager.getInstance().addToCart(cartItem);
+                CartManager.getInstance(requireContext()).addToCart(cartItem);
             }
             Toast.makeText(getContext(), "Added " + order.items.size() + " items to cart", Toast.LENGTH_SHORT).show();
             
@@ -193,7 +193,7 @@ public class OrdersFragment extends Fragment {
                     .setMessage("Are you sure you want to cancel this order?")
                     .setPositiveButton("YES, CANCEL", (confirmDialog, which) -> {
                         String currentTime = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(new Date());
-                        OrderManager.getInstance().cancelOrder(orderId, reason, currentTime);
+                        OrderManager.getInstance(requireContext()).cancelOrder(orderId, reason, currentTime);
                         
                         // Send Push Notification for Cancellation
                         NotificationHelper.sendOrderNotification(getContext(), "Order Cancelled ❌", 

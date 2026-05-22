@@ -11,7 +11,7 @@ public class BadgeHelper {
         // Setup Cart Badge
         BadgeDrawable cartBadge = bottomNavigationView.getOrCreateBadge(R.id.nav_cart);
         int cartCount = 0;
-        for (CartManager.CartItem item : CartManager.getInstance().getCartItems()) {
+        for (CartItem item : CartManager.getInstance(bottomNavigationView.getContext()).getCartItems()) {
             cartCount += item.quantity;
         }
         
@@ -26,7 +26,7 @@ public class BadgeHelper {
 
         // Setup Profile Badge (Orders)
         BadgeDrawable profileBadge = bottomNavigationView.getOrCreateBadge(R.id.nav_profile);
-        int orderCount = OrderManager.getInstance().getOrders().size();
+        int orderCount = OrderManager.getInstance(bottomNavigationView.getContext()).getOrders().size();
         
         if (orderCount > 0) {
             profileBadge.setVisible(true);

@@ -28,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
         
         mAuth = FirebaseAuth.getInstance();
 
+        // Check if user is logged in
+        if (mAuth.getCurrentUser() == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_main);
 
         // Initialize Notification Channel

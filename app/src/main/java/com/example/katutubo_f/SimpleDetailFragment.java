@@ -93,10 +93,10 @@ public class SimpleDetailFragment extends Fragment {
 
     private void displayOrdersByStatus(LinearLayout container, String filterStatus) {
         container.removeAllViews();
-        List<OrderManager.Order> orders = OrderManager.getInstance().getOrders();
+        List<Order> orders = OrderManager.getInstance(requireContext()).getOrders();
         boolean found = false;
         
-        for (OrderManager.Order order : orders) {
+        for (Order order : orders) {
             if (filterStatus.isEmpty() || order.status.toLowerCase().contains(filterStatus.toLowerCase())) {
                 found = true;
                 View itemView = getLayoutInflater().inflate(R.layout.item_order, container, false);
@@ -137,16 +137,16 @@ public class SimpleDetailFragment extends Fragment {
         }
     }
 
-    private void handleBuyAgain(OrderManager.Order order) {
+    private void handleBuyAgain(Order order) {
         if (order.items != null && !order.items.isEmpty()) {
-            for (OrderManager.OrderItem item : order.items) {
-                CartManager.CartItem cartItem = new CartManager.CartItem(
+            for (OrderItem item : order.items) {
+                CartItem cartItem = new CartItem(
                         item.name,
                         item.price,
                         item.imageResId,
                         item.quantity
                 );
-                CartManager.getInstance().addToCart(cartItem);
+                CartManager.getInstance(requireContext()).addToCart(cartItem);
             }
             Toast.makeText(getContext(), "Added " + order.items.size() + " items to cart", Toast.LENGTH_SHORT).show();
             
@@ -204,7 +204,7 @@ public class SimpleDetailFragment extends Fragment {
                     .setMessage("Are you sure you want to cancel this order?")
                     .setPositiveButton("YES, CANCEL", (confirmDialog, which) -> {
                         String currentTime = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(new Date());
-                        OrderManager.getInstance().cancelOrder(orderId, reason, currentTime);
+                        OrderManager.getInstance(requireContext()).cancelOrder(orderId, reason, currentTime);
 
                         // Send Push Notification for Cancellation
                         NotificationHelper.sendOrderNotification(getContext(), "Order Cancelled ❌",
@@ -223,23 +223,23 @@ public class SimpleDetailFragment extends Fragment {
     }
 
     private void displayRecentProducts(LinearLayout container) {
-        List<RecentViewManager.Product> recentProducts = RecentViewManager.getInstance().getRecentProducts();
+        List<RecentProduct> recentProducts = RecentViewManager.getInstance(requireContext()).getRecentProducts();
         if (recentProducts.isEmpty()) {
             showEmptyMessage(container, "No recently viewed products.");
             return;
         }
-        for (RecentViewManager.Product product : recentProducts) {
+        for (RecentProduct product : recentProducts) {
             addProductItem(container, product.title, product.price, product.description, product.imageResource);
         }
     }
 
     private void displayFavoriteProducts(LinearLayout container) {
-        List<FavoriteManager.Product> favoriteProducts = FavoriteManager.getInstance().getFavoriteProducts();
+        List<FavoriteProduct> favoriteProducts = FavoriteManager.getInstance(requireContext()).getFavoriteProducts();
         if (favoriteProducts.isEmpty()) {
             showEmptyMessage(container, "Your favorites list is empty.");
             return;
         }
-        for (FavoriteManager.Product product : favoriteProducts) {
+        for (FavoriteProduct product : favoriteProducts) {
             addProductItem(container, product.title, product.price, product.description, product.imageResource);
         }
     }

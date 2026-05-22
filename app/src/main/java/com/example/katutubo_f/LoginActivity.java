@@ -32,6 +32,12 @@ public class LoginActivity extends AppCompatActivity {
         
         mAuth = FirebaseAuth.getInstance();
         
+        // If already logged in, go to MainActivity
+        if (mAuth.getCurrentUser() != null) {
+            startMainActivity();
+            return;
+        }
+        
         setContentView(R.layout.activity_login);
 
         loadingOverlay = findViewById(R.id.loading_overlay);
@@ -84,7 +90,10 @@ public class LoginActivity extends AppCompatActivity {
     private void onLoginSuccess() {
         loadingOverlay.setVisibility(View.GONE);
         Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
-        
+        startMainActivity();
+    }
+
+    private void startMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         // Add flag to skip the entrance screen in MainActivity
         intent.putExtra("SKIP_ENTRANCE", true);

@@ -16,10 +16,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "PAYMONGO_SECRET_KEY", "\"sk_test_YOUR_KEY_HERE\"")
-        buildConfigField("String", "TWILIO_ACCOUNT_SID", "\"ACc5b2a2595856c00d44e9572d4136a4e3\"")
-        buildConfigField("String", "TWILIO_AUTH_TOKEN", "\"aeaa32fc082ff6d9cd7029c8d58d6f77\"")
-        buildConfigField("String", "TWILIO_FROM_NUMBER", "\"+1234567890\"")
         buildConfigField("String", "FACEBOOK_APP_ID", "\"1870350397014009\"")
         buildConfigField("String", "FACEBOOK_APP_SECRET", "\"8bf62be37e45235d75ffaf91fff5b24c\"")
     }
@@ -55,10 +51,6 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
-
     implementation("com.facebook.android:facebook-login:latest.release")
 
     implementation("com.google.android.gms:play-services-auth:21.3.0")

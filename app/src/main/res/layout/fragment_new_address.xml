@@ -85,30 +85,15 @@
 
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" />
 
-                <RelativeLayout
-                    android:id="@+id/btn_select_region"
+                <EditText
+                    android:id="@+id/et_region"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingVertical="12dp">
-
-                    <TextView
-                        android:id="@+id/tv_region"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Region, Province, City, Barangay"
-                        android:textColor="#AAAAAA"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_media_next"
-                        app:tint="#AAAAAA" />
-                </RelativeLayout>
+                    android:hint="Region, Province, City, Barangay"
+                    android:background="@null"
+                    android:paddingVertical="12dp"
+                    android:textSize="15sp"
+                    android:inputType="text"/>
 
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" />
 

@@ -40,4 +40,5 @@
     <string name="katutubo_title">Katutubo</string>
     <string name="indigenous_market">Indigenous Market</string>
     <string name="enter_market">Enter Market</string>
+    <string name="order_status_format">📦 %1$s</string>
 </resources>
