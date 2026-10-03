@@ -83,6 +83,10 @@ public class SimpleDetailFragment extends Fragment {
             contentTextView.setVisibility(View.GONE);
             displayOrdersByStatus(dynamicContainer, "Cancelled");
         }
+        else if ("Flash Sale".equals(title)) {
+            contentTextView.setVisibility(View.GONE);
+            displayFlashSale(dynamicContainer);
+        }
         else if ("Purchase History".equals(title)) {
             contentTextView.setVisibility(View.GONE);
             displayOrdersByStatus(dynamicContainer, ""); // Empty string means all orders
@@ -134,6 +138,75 @@ public class SimpleDetailFragment extends Fragment {
         
         if (!found) {
             showEmptyMessage(container, "No orders found.");
+        }
+    }
+
+    private void displayFlashSale(LinearLayout container) {
+        container.removeAllViews();
+        
+        String[] names = {"Ompák", "Sonnod", "Inabal", "Bukag", "Baliog", "Kwintas", "Singsing", "Tangkulo", "Banig", "Panday"};
+        int[] images = {R.drawable.ompak, R.drawable.sonnod, R.drawable.inaball, R.drawable.bukag, R.drawable.baliog, R.drawable.kwintas, R.drawable.singsing, R.drawable.tangkulo, R.drawable.banig, R.drawable.panday};
+        String[] prices = {"₱750.00", "₱600.00", "₱1,400.00", "₱150.00", "₱350.00", "₱250.00", "₱150.00", "₱450.00", "₱1,200.00", "₱800.00"};
+        String[] original = {"₱1,500", "₱1,200", "₱2,800", "₱300", "₱700", "₱500", "₱300", "₱900", "₱2,400", "₱1,600"};
+        String[] descriptions = {
+            "Traditional Bagobo Tagabawa upper garment for women, featuring intricate beadwork and embroidery.",
+            "A beautifully hand-embroidered Bagobo Tagabawa blouse, usually worn during special tribal ceremonies.",
+            "Traditional handwoven abaca cloth, naturally dyed and patterned with sacred geometric designs.",
+            "A sturdy, hand-woven basket used for harvesting and carrying agricultural products.",
+            "Traditional beaded necklace with intricate patterns and vibrant colors, symbolizing tribal identity.",
+            "Handcrafted indigenous necklace made from natural beads and materials.",
+            "Artisan-crafted tribal ring featuring traditional metalwork or beadwork designs.",
+            "A sacred head cloth or scarf, often worn as a symbol of leadership or special status.",
+            "Handwoven mat made from dried sea-grass or palm leaves, featuring complex geometric patterns.",
+            "Hand-forged traditional blade or metalcraft, showcasing ancestral smithing techniques."
+        };
+        String[] artisans = {"Artisan Handcrafted", "Master Weaver", "Traditional Weavers", "Basket Weavers Guild", "Beadwork Specialists", "Local Artisans", "Metalwork Guild", "Tribal Elders", "Mat Weavers", "Master Smiths"};
+        String[] materials = {"Abaca fiber", "Handwoven cotton", "Hand-dyed Abaca", "Bamboo, Rattan", "Glass beads", "Natural beads", "Brass, Silver", "Hand-dyed fabric", "Dried leaves", "Forged metal"};
+        String[] inspirations = {"Bansalan, Digos City", "Bansalan, Digos City", "Bansalan, Digos City", "Tagakaolo", "Mindanao Tribes", "Indigenous Crafts", "Ancestral Metalwork", "Tribal Heritage", "Traditional Patterns", "Smithing Traditions"};
+        String[] histories = {
+            "The Ompák represents the social status and identity of Bagobo Tagabawa women. Each bead pattern tells a story of their ancestral lineage and connection to nature.",
+            "Sonnod has been passed down through generations, originally crafted using only natural dyes from barks and roots found in the foothills of Mt. Apo.",
+            "Inabal is considered sacred. The patterns are often revealed to the weavers in dreams, making each piece a unique spiritual expression.",
+            "The Bukag is an essential part of the Tagakaolo way of life, evolved from simple storage containers to symbolic items used in harvest rituals.",
+            "The Baliog is more than just jewelry; it's a wearable piece of history representing the wearer's tribe and social standing.",
+            "Indigenous necklaces like the Kwintas have been used for centuries as both adornment and currency in trade.",
+            "Tribal rings or Singsing often carry protective meanings or signify marital status within the community.",
+            "The Tangkulo is a testament to the weaver's skill and the wearer's importance in tribal society.",
+            "Banig weaving is a communal activity that brings generations together, preserving the art of intricate geometric storytelling.",
+            "The Panday (smith) holds a respected place in the community, crafting tools and weapons that are both functional and artistic."
+        };
+
+        for (int i = 0; i < names.length; i++) {
+            View itemView = getLayoutInflater().inflate(R.layout.item_discounted_product, container, false);
+            ImageView img = itemView.findViewById(R.id.discount_image);
+            TextView name = itemView.findViewById(R.id.discount_name);
+            TextView price = itemView.findViewById(R.id.discount_price);
+            TextView orig = itemView.findViewById(R.id.original_price);
+            TextView tag = itemView.findViewById(R.id.discount_tag);
+
+            final String finalName = names[i];
+            final String finalPrice = prices[i];
+            final String finalDesc = descriptions[i];
+            final int finalImage = images[i];
+            final String finalArtisan = artisans[i];
+            final String finalMaterial = materials[i];
+            final String finalInspiration = inspirations[i];
+            final String finalHistory = histories[i];
+
+            img.setImageResource(images[i]);
+            name.setText(names[i]);
+            price.setText(prices[i]);
+            orig.setText(original[i]);
+            orig.setPaintFlags(orig.getPaintFlags() | android.graphics.Paint.STRIKE_THRU_TEXT_FLAG);
+            tag.setText("-50%");
+
+            itemView.setOnClickListener(v -> {
+                getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, ProductDetailFragment.newInstance(finalName, finalPrice, finalDesc, finalImage, finalArtisan, finalMaterial, finalInspiration, finalHistory))
+                    .addToBackStack(null)
+                    .commit();
+            });
+            container.addView(itemView);
         }
     }
 

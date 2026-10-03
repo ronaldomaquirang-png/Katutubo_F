@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,13 +59,10 @@ public class MainActivity extends AppCompatActivity {
             showHomeAd();
         }
 
-        enterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // When clicking "ENTER MARKET", hide the entrance screen to reveal the home content (HomeFragment)
-                entranceScreen.setVisibility(View.GONE);
-                showHomeAd();
-            }
+        enterBtn.setOnClickListener(v -> {
+            // When clicking "ENTER MARKET", hide the entrance screen to reveal the home content (HomeFragment)
+            entranceScreen.setVisibility(View.GONE);
+            showHomeAd();
         });
     }
 

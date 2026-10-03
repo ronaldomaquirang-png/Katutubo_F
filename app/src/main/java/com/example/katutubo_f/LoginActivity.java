@@ -69,9 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(v -> loginUser());
         googleSignInBtn.setOnClickListener(v -> gmailHelper.signIn());
         
-        signUpText.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
-        });
+        signUpText.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignUpActivity.class)));
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override

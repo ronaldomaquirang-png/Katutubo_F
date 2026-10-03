@@ -3,254 +3,237 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/katutubo_beige">
+    android:background="@color/katutubo_brown">
 
     <LinearLayout
+        android:id="@+id/cart_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Shopping Cart"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:textColor="#EE4D2D"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation"
-        android:orientation="vertical">
+        android:layout_below="@id/cart_header"
+        android:layout_above="@id/checkout_section"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/katutubo_orange"
             android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My Cart"
-                android:textColor="@color/white"
-                android:textSize="26sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ready to bring these crafts home?"
-                android:textColor="#FFE6D5"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:paddingBottom="20dp">
 
             <LinearLayout
                 android:id="@+id/cart_items_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
+                android:orientation="vertical">
                 <!-- Cart items will be added here dynamically -->
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_empty_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="100dp"
+                android:text="Your cart is empty"
+                android:textColor="#999999"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <!-- Promotions Section -->
+            <LinearLayout
+                android:id="@+id/promotion_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:visibility="gone">
 
                 <TextView
-                    android:id="@+id/tv_empty_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/special_offers"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:paddingHorizontal="8dp">
+                    <LinearLayout
+                        android:id="@+id/promo_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <!-- Recent Views Section -->
+            <LinearLayout
+                android:id="@+id/recent_views_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/recently_viewed"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:paddingHorizontal="8dp">
+                    <LinearLayout
+                        android:id="@+id/recent_views_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <!-- Recommendations -->
+            <LinearLayout
+                android:id="@+id/recommendations_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginTop="50dp"
-                    android:text="Your cart is empty"
-                    android:textColor="@color/katutubo_brown"
-                    android:visibility="gone" />
-
-                <!-- Promotion Section -->
-                <LinearLayout
-                    android:id="@+id/promotion_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_white_bg"
-                    android:elevation="2dp"
-                    android:padding="12dp">
-
+                    android:paddingVertical="12dp">
+                    <View android:layout_width="30dp" android:layout_height="1dp" android:background="#DDDDDD"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Exclusive Promotions"
-                        android:textColor="@color/katutubo_orange"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="none"
-                        android:layout_marginTop="8dp">
-                        <LinearLayout
-                            android:id="@+id/promo_container"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal" />
-                    </HorizontalScrollView>
+                        android:layout_marginHorizontal="12dp"
+                        android:text="@string/you_may_also_like"
+                        android:textColor="#EE4D2D"
+                        android:textStyle="bold"
+                        android:textSize="13sp" />
+                    <View android:layout_width="30dp" android:layout_height="1dp" android:background="#DDDDDD"/>
                 </LinearLayout>
 
-                <!-- Recently Viewed Section -->
-                <LinearLayout
-                    android:id="@+id/recent_views_section"
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/rounded_white_bg"
-                    android:elevation="2dp"
-                    android:padding="12dp"
-                    android:visibility="gone">
-
-                    <TextView
+                    android:scrollbars="none"
+                    android:paddingHorizontal="8dp">
+                    <LinearLayout
+                        android:id="@+id/recommendations_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Recently Viewed"
-                        android:textColor="@color/katutubo_brown"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="none"
-                        android:layout_marginTop="8dp">
-                        <LinearLayout
-                            android:id="@+id/recent_views_container"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal" />
-                    </HorizontalScrollView>
-                </LinearLayout>
-
-                <!-- You Might Also Like Section -->
-                <LinearLayout
-                    android:id="@+id/recommendations_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/rounded_white_bg"
-                    android:elevation="2dp"
-                    android:padding="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="You Might Also Like"
-                        android:textColor="@color/katutubo_orange"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="none"
-                        android:layout_marginTop="8dp">
-                        <LinearLayout
-                            android:id="@+id/recommendations_container"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal" />
-                    </HorizontalScrollView>
-                </LinearLayout>
-
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
             </LinearLayout>
-        </ScrollView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom Action Bar -->
+    <LinearLayout
+        android:id="@+id/checkout_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_navigation"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:elevation="8dp">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All"
+            android:layout_marginStart="12dp"
+            android:checked="true"
+            android:buttonTint="@color/katutubo_green"/>
+
+        <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
 
         <LinearLayout
-            android:id="@+id/checkout_section"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:elevation="8dp"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:gravity="end"
+            android:layout_marginEnd="12dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp">
-
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Subtotal"
-                    android:textColor="@color/katutubo_brown"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_subtotal_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="₱0.00"
-                    android:textColor="@color/katutubo_brown"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Shipping Fee"
-                    android:textColor="@color/katutubo_brown"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_shipping_fee"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="₱0.00"
-                    android:textColor="@color/katutubo_brown"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#EEEEEE"
-                android:layout_marginBottom="12dp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total Amount"
-                    android:textColor="@color/katutubo_brown"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
+                    android:text="Total: "
+                    android:textColor="@color/black"
+                    android:textSize="14sp"/>
                 <TextView
                     android:id="@+id/tv_total_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:text="₱0.00"
-                    android:textColor="@color/katutubo_green"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+                    android:textColor="#EE4D2D"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_checkout"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:backgroundTint="@color/katutubo_orange"
-                android:text="PROCEED TO CHECKOUT"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Voucher applied"
+                android:textColor="#EE4D2D"
+                android:textSize="10sp"/>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_checkout"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#EE4D2D"
+            android:text="Check Out"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:cornerRadius="0dp"/>
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -258,9 +241,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#E67E22"
+        android:background="@color/white"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
-        app:menu="@menu/bottom_nav_menu" />
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        android:elevation="8dp"/>
 
 </RelativeLayout>

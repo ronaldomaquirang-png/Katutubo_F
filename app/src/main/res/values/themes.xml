@@ -1,7 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Katutubo_F" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Katutubo_F" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
     </style>
 
     <style name="Theme.Katutubo_F" parent="Base.Theme.Katutubo_F">
@@ -42,5 +45,9 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">#EEEEEE</item>
+    </style>
+
+    <style name="CircleImage">
+        <item name="cornerSize">50%</item>
     </style>
 </resources>

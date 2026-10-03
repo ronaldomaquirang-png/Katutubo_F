@@ -21,7 +21,7 @@ import java.util.Objects;
 
 public class ProductDetailFragment extends Fragment {
 
-    private String title, price, description, artisan, materials, origin, history;
+    private String title, price, originalPrice, description, artisan, materials, origin, history;
     private int imageResource;
 
     public ProductDetailFragment() {
@@ -29,18 +29,23 @@ public class ProductDetailFragment extends Fragment {
     }
 
     public static ProductDetailFragment newInstance(String title, String price, String description, int imageResource) {
-        return newInstance(title, price, description, imageResource, null, null, null, null);
+        return newInstance(title, price, null, description, imageResource, null, null, null, null);
     }
 
     public static ProductDetailFragment newInstance(String title, String price, String description, int imageResource, String artisan, String materials, String origin) {
-        return newInstance(title, price, description, imageResource, artisan, materials, origin, null);
+        return newInstance(title, price, null, description, imageResource, artisan, materials, origin, null);
     }
 
     public static ProductDetailFragment newInstance(String title, String price, String description, int imageResource, String artisan, String materials, String origin, String history) {
+        return newInstance(title, price, null, description, imageResource, artisan, materials, origin, history);
+    }
+
+    public static ProductDetailFragment newInstance(String title, String price, String originalPrice, String description, int imageResource, String artisan, String materials, String origin, String history) {
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         args.putString("price", price);
+        args.putString("originalPrice", originalPrice);
         args.putString("description", description);
         args.putInt("imageResource", imageResource);
         args.putString("artisan", artisan);
@@ -57,6 +62,7 @@ public class ProductDetailFragment extends Fragment {
         if (getArguments() != null) {
             title = getArguments().getString("title");
             price = getArguments().getString("price");
+            originalPrice = getArguments().getString("originalPrice");
             description = getArguments().getString("description");
             imageResource = getArguments().getInt("imageResource");
             artisan = getArguments().getString("artisan");
@@ -78,6 +84,7 @@ public class ProductDetailFragment extends Fragment {
 
         TextView titleTxt = view.findViewById(R.id.productTitle);
         TextView priceTxt = view.findViewById(R.id.productPrice);
+        TextView originalPriceTxt = view.findViewById(R.id.productOriginalPrice);
         TextView descTxt = view.findViewById(R.id.productDescription);
         TextView historyTxt = view.findViewById(R.id.productHistory);
         TextView artisanTxt = view.findViewById(R.id.productArtisan);
@@ -91,19 +98,30 @@ public class ProductDetailFragment extends Fragment {
 
         titleTxt.setText(title);
         priceTxt.setText(price);
+
+        if (originalPriceTxt != null) {
+            if (originalPrice != null && !originalPrice.isEmpty()) {
+                originalPriceTxt.setText(originalPrice);
+                originalPriceTxt.setPaintFlags(originalPriceTxt.getPaintFlags() | android.graphics.Paint.STRIKE_THRU_TEXT_FLAG);
+                originalPriceTxt.setVisibility(View.VISIBLE);
+            } else {
+                originalPriceTxt.setVisibility(View.GONE);
+            }
+        }
+
         descTxt.setText(description);
         
         if (historyTxt != null) {
-            historyTxt.setText(Objects.requireNonNullElse(history, "This product carries the rich heritage of its makers, passed down through generations as a symbol of cultural identity and traditional craftsmanship."));
+            historyTxt.setText(history != null ? history : "This product carries the rich heritage of its makers, passed down through generations as a symbol of cultural identity and traditional craftsmanship.");
         }
         if (artisanTxt != null) {
-            artisanTxt.setText(Objects.requireNonNullElse(artisan, "Traditional Artisan"));
+            artisanTxt.setText(artisan != null ? artisan : "Traditional Artisan");
         }
         if (materialsTxt != null) {
-            materialsTxt.setText(Objects.requireNonNullElse(materials, "Natural materials"));
+            materialsTxt.setText(materials != null ? materials : "Natural materials");
         }
         if (originTxt != null) {
-            originTxt.setText(Objects.requireNonNullElse(origin, "Philippines"));
+            originTxt.setText(origin != null ? origin : "Philippines");
         }
 
         if (imageResource != 0) {

@@ -18,7 +18,7 @@ import java.util.Locale;
 public class CartFragment extends Fragment {
 
     private LinearLayout cartContainer;
-    private TextView tvSubtotal, tvShippingFee, tvTotalAmount;
+    private TextView tvTotalAmount;
     private TextView tvEmptyCart;
     private BottomNavigationView bottomNavigationView;
 
@@ -32,8 +32,6 @@ public class CartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
 
         cartContainer = view.findViewById(R.id.cart_items_container);
-        tvSubtotal = view.findViewById(R.id.tv_subtotal_amount);
-        tvShippingFee = view.findViewById(R.id.tv_shipping_fee);
         tvTotalAmount = view.findViewById(R.id.tv_total_amount);
         tvEmptyCart = view.findViewById(R.id.tv_empty_cart);
         Button btnCheckout = view.findViewById(R.id.btn_checkout);
@@ -66,7 +64,8 @@ public class CartFragment extends Fragment {
         setupRecommendations(view);
 
         btnCheckout.setOnClickListener(v -> {
-            if (CartManager.getInstance(requireContext()).getCartItems().isEmpty()) {
+            if (CartManager.getInstance(requireContext()).getSelectedItems().isEmpty()) {
+                android.widget.Toast.makeText(getContext(), "Please select items to checkout", android.widget.Toast.LENGTH_SHORT).show();
                 return;
             }
             getParentFragmentManager().beginTransaction()
@@ -97,8 +96,6 @@ public class CartFragment extends Fragment {
 
         if (items.isEmpty()) {
             tvEmptyCart.setVisibility(View.VISIBLE);
-            if (tvSubtotal != null) tvSubtotal.setText(R.string.price_zero);
-            if (tvShippingFee != null) tvShippingFee.setText(R.string.price_zero);
             tvTotalAmount.setText(R.string.price_zero);
             return;
         }
@@ -107,18 +104,25 @@ public class CartFragment extends Fragment {
         for (CartItem item : items) {
             View itemView = getLayoutInflater().inflate(R.layout.item_cart, cartContainer, false);
             
+            android.widget.CheckBox checkBox = itemView.findViewById(R.id.cart_item_checkbox);
             ImageView img = itemView.findViewById(R.id.cart_item_image);
             TextView title = itemView.findViewById(R.id.cart_item_title);
             TextView price = itemView.findViewById(R.id.cart_item_price);
             TextView qty = itemView.findViewById(R.id.cart_item_qty);
-            Button btnPlus = itemView.findViewById(R.id.btn_plus);
-            Button btnMinus = itemView.findViewById(R.id.btn_minus);
+            TextView btnPlus = itemView.findViewById(R.id.btn_plus);
+            TextView btnMinus = itemView.findViewById(R.id.btn_minus);
             ImageButton btnDelete = itemView.findViewById(R.id.btn_delete);
             
+            checkBox.setChecked(item.isSelected);
             img.setImageResource(item.imageResource);
             title.setText(item.title);
             price.setText(item.price);
             qty.setText(String.format(Locale.getDefault(), "%d", item.quantity));
+
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                item.isSelected = isChecked;
+                updateTotalAmountUI();
+            });
 
             btnPlus.setOnClickListener(v -> {
                 CartManager.getInstance(requireContext()).incrementQuantity(item);
@@ -138,18 +142,17 @@ public class CartFragment extends Fragment {
             cartContainer.addView(itemView);
         }
 
-        double subtotal = CartManager.getInstance(requireContext()).getTotalAmount();
-        double shipping = CartManager.getInstance(requireContext()).getShippingFee();
-        double total = CartManager.getInstance(requireContext()).getGrandTotal();
-
-        if (tvSubtotal != null) tvSubtotal.setText(String.format(Locale.getDefault(), "₱%,.2f", subtotal));
-        if (tvShippingFee != null) tvShippingFee.setText(String.format(Locale.getDefault(), "₱%,.2f", shipping));
-        tvTotalAmount.setText(String.format(Locale.getDefault(), "₱%,.2f", total));
+        updateTotalAmountUI();
         
         // Update badges to reflect quantity changes
         if (bottomNavigationView != null) {
             BadgeHelper.setupBadges(bottomNavigationView);
         }
+    }
+
+    private void updateTotalAmountUI() {
+        double total = CartManager.getInstance(requireContext()).getGrandTotal();
+        tvTotalAmount.setText(String.format(Locale.getDefault(), "₱%,.2f", total));
     }
 
     private void setupPromotions(View view) {
@@ -168,8 +171,8 @@ public class CartFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         String[] names = {"Ompák", "Sonnod", "Inabal", "Bukag"};
         int[] images = {R.drawable.ompak, R.drawable.sonnod, R.drawable.inaball, R.drawable.bukag};
-        String[] prices = {"₱750.00", "₱600.00", "₱1,400.00", "₱150.00"};
-        String[] original = {"₱1,500", "₱1,200", "₱2,800", "₱300"};
+        double[] originalPrices = {1500, 1200, 2800, 300};
+        int[] discounts = {50, 40, 30, 25};
         String[] descriptions = {
                 "Bagobo Tagabawa — Bansalan, Digos City",
                 "Bagobo Tagabawa — Bansalan, Digos City",
@@ -184,12 +187,17 @@ public class CartFragment extends Fragment {
             View itemView = inflater.inflate(R.layout.item_discounted_product, promoContainer, false);
             ImageView img = itemView.findViewById(R.id.discount_image);
             TextView name = itemView.findViewById(R.id.discount_name);
-            TextView price = itemView.findViewById(R.id.discount_price);
+            TextView priceText = itemView.findViewById(R.id.discount_price);
             TextView orig = itemView.findViewById(R.id.original_price);
             TextView tag = itemView.findViewById(R.id.discount_tag);
 
+            double original = originalPrices[i];
+            int discountPercent = discounts[i];
+            double discountedAmount = original * (discountPercent / 100.0);
+            double finalPriceValue = original - discountedAmount;
+
             final String finalName = names[i];
-            final String finalPrice = prices[i];
+            final String finalPrice = String.format(java.util.Locale.getDefault(), "₱%,.2f", finalPriceValue);
             final String finalDesc = descriptions[i];
             final int finalImage = images[i];
             final String finalArtisan = artisans[i];
@@ -198,14 +206,16 @@ public class CartFragment extends Fragment {
 
             if (img != null) img.setImageResource(images[i]);
             if (name != null) name.setText(names[i]);
-            if (price != null) price.setText(prices[i]);
+            if (priceText != null) priceText.setText(finalPrice);
             if (orig != null) {
-                orig.setText(original[i]);
+                orig.setText(String.format(java.util.Locale.getDefault(), "₱%,.0f", original));
                 orig.setPaintFlags(orig.getPaintFlags() | android.graphics.Paint.STRIKE_THRU_TEXT_FLAG);
             }
-            if (tag != null) tag.setText("-50%");
+            if (tag != null) {
+                tag.setText(String.format(java.util.Locale.getDefault(), "-%d%%", discountPercent));
+            }
 
-            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(finalName, finalPrice, finalDesc, finalImage, finalArtisan, finalMaterial, finalInspiration)));
+            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(finalName, finalPrice, String.format(java.util.Locale.getDefault(), "₱%,.0f", original), finalDesc, finalImage, finalArtisan, finalMaterial, finalInspiration, null)));
 
             promoContainer.addView(itemView);
         }
@@ -242,7 +252,7 @@ public class CartFragment extends Fragment {
             if (orig != null) orig.setVisibility(View.GONE);
             if (tag != null) tag.setVisibility(View.GONE);
 
-            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(p.title, p.price, p.description, p.imageResource, "Traditional Artisan", "Natural Materials", "Cultural Heritage")));
+            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(p.title, p.price, null, p.description, p.imageResource, "Traditional Artisan", "Natural Materials", "Cultural Heritage", null)));
 
             recentViewsContainer.addView(itemView);
         }
@@ -265,7 +275,7 @@ public class CartFragment extends Fragment {
         // Different set of products for recommendations
         String[] names = {"Bong an tidas", "Malong", "Dagmay cloth", "Suwat", "Balyog"};
         int[] images = {R.drawable.bongantidas, R.drawable.malong, R.drawable.dagmayy, R.drawable.suwat, R.drawable.balyog};
-        String[] prices = {"₱150.00", "₱850.00", "₱2,500.00", "₱350.00", "₱550.00"};
+        String[] prices = {"₱450.00", "₱450.00", "₱1,250.00", "₱250.00", "₱275.00"};
         String[] descriptions = {
                 "Tagakaolo — Malalag, Sta. Maria",
                 "Tagakaolo — Malalag, Sta. Maria",
@@ -281,7 +291,7 @@ public class CartFragment extends Fragment {
             View itemView = inflater.inflate(R.layout.item_discounted_product, recContainer, false);
             ImageView img = itemView.findViewById(R.id.discount_image);
             TextView name = itemView.findViewById(R.id.discount_name);
-            TextView price = itemView.findViewById(R.id.discount_price);
+            TextView priceText = itemView.findViewById(R.id.discount_price);
             TextView orig = itemView.findViewById(R.id.original_price);
             TextView tag = itemView.findViewById(R.id.discount_tag);
 
@@ -295,11 +305,11 @@ public class CartFragment extends Fragment {
 
             if (img != null) img.setImageResource(images[i]);
             if (name != null) name.setText(names[i]);
-            if (price != null) price.setText(prices[i]);
+            if (priceText != null) priceText.setText(prices[i]);
             if (orig != null) orig.setVisibility(View.GONE);
             if (tag != null) tag.setVisibility(View.GONE);
 
-            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(finalName, finalPrice, finalDesc, finalImage, finalArtisan, finalMaterial, finalInspiration)));
+            itemView.setOnClickListener(v -> switchFragment(ProductDetailFragment.newInstance(finalName, finalPrice, null, finalDesc, finalImage, finalArtisan, finalMaterial, finalInspiration, null)));
 
             recContainer.addView(itemView);
         }

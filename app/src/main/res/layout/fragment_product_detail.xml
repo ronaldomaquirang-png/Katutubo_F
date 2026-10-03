@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/katutubo_beige">
+    android:background="@color/katutubo_brown">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -86,15 +86,32 @@
                             android:checked="false" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/productPrice"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="₱850.00"
-                        android:textColor="@color/katutubo_green"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:gravity="bottom"
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/productPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="₱850.00"
+                            android:textColor="@color/katutubo_green"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/productOriginalPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginBottom="2dp"
+                            android:text="₱1,200"
+                            android:textColor="#999999"
+                            android:textSize="14sp" />
+                    </LinearLayout>
 
                     <View
                         android:layout_width="60dp"
@@ -265,9 +282,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/katutubo_brown"
+        android:background="@color/white"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
-        app:menu="@menu/bottom_nav_menu" />
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        android:elevation="8dp"/>
 
 </RelativeLayout>

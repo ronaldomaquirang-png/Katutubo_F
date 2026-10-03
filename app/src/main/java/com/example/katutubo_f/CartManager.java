@@ -52,18 +52,27 @@ public class CartManager {
     public double getTotalAmount() {
         double total = 0;
         for (CartItem item : cartItems) {
-            try {
-                String priceStr = item.price.replace("₱", "").replace(",", "").trim();
-                total += Double.parseDouble(priceStr) * item.quantity;
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
+            if (item.isSelected) {
+                try {
+                    String priceStr = item.price.replace("₱", "").replace(",", "").trim();
+                    total += Double.parseDouble(priceStr) * item.quantity;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return total;
     }
 
     public double getShippingFee() {
-        return cartItems.isEmpty() ? 0 : 50.0;
+        boolean hasSelected = false;
+        for (CartItem item : cartItems) {
+            if (item.isSelected) {
+                hasSelected = true;
+                break;
+            }
+        }
+        return hasSelected ? 50.0 : 0;
     }
 
     public double getGrandTotal() {
@@ -72,5 +81,25 @@ public class CartManager {
 
     public void clearCart() {
         cartItems.clear();
+    }
+
+    public List<CartItem> getSelectedItems() {
+        List<CartItem> selected = new ArrayList<>();
+        for (CartItem item : cartItems) {
+            if (item.isSelected) {
+                selected.add(item);
+            }
+        }
+        return selected;
+    }
+
+    public void removeSelectedItems() {
+        java.util.Iterator<CartItem> iterator = cartItems.iterator();
+        while (iterator.hasNext()) {
+            CartItem item = iterator.next();
+            if (item.isSelected) {
+                iterator.remove();
+            }
+        }
     }
 }

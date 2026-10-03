@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/katutubo_brown"
     android:orientation="vertical">
 
+    <!-- White Header with Red Accents -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/katutubo_orange"
+        android:background="@color/white"
         android:paddingHorizontal="16dp">
 
         <TextView
@@ -17,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="←"
-            android:textColor="@color/white"
+            android:textColor="#EE4D2D"
             android:textSize="24sp"
             android:clickable="true"
             android:focusable="true"/>
@@ -27,11 +29,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Orders"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:text="My Purchases"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
     </RelativeLayout>
+
+    <!-- Simple Tabs Placeholder -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="All" android:gravity="center" android:textColor="#EE4D2D" android:textStyle="bold"/>
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="To Pay" android:gravity="center" android:textColor="#555555"/>
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="To Ship" android:gravity="center" android:textColor="#555555"/>
+        <TextView android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Completed" android:gravity="center" android:textColor="#555555"/>
+    </LinearLayout>
+    <View android:layout_width="100dp" android:layout_height="2dp" android:background="#EE4D2D" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -45,8 +59,7 @@
                 android:id="@+id/orders_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp" />
+                android:orientation="vertical" />
         </ScrollView>
 
         <LinearLayout
@@ -61,17 +74,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No items found here yet."
+                android:text="No orders yet"
                 android:textColor="#888888"
                 android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Your Katutubo journey is just beginning!"
-                android:textColor="#AAAAAA"
-                android:textSize="14sp" />
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

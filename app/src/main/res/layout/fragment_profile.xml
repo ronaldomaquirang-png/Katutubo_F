@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="@color/katutubo_brown">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,38 +13,60 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:clipChildren="false"
-            android:clipToPadding="false">
+            android:orientation="vertical">
 
+            <!-- Shopee Style Profile Header -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:background="@color/katutubo_orange"
-                android:padding="20dp">
+                android:background="#EE4D2D">
 
-                <!-- Logged In User Info -->
+                <!-- User Info -->
                 <LinearLayout
                     android:id="@+id/logged_in_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:background="@drawable/rounded_white_bg"
-                        android:padding="5dp"
-                        android:src="@drawable/logoooo" />
+                    <RelativeLayout
+                        android:layout_width="64dp"
+                        android:layout_height="64dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/profile_image"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/logoooo"
+                            app:shapeAppearanceOverlay="@style/CircleImage"
+                            android:padding="2dp"
+                            android:background="@color/white"
+                            android:scaleType="centerCrop"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                        <ImageView
+                            android:id="@+id/btn_edit_profile_image"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:background="@drawable/badge_bg"
+                            android:padding="4dp"
+                            android:src="@drawable/ic_edit_24"
+                            app:tint="@color/white"
+                            android:elevation="4dp"
+                            android:clickable="true"
+                            android:focusable="true"/>
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
+                        android:layout_marginStart="16dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -53,23 +75,11 @@
                             android:layout_height="wrap_content"
                             android:text="Katutubo User"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/category_chip_bg"
-                            android:backgroundTint="#40FFFFFF"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="Silver Member"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Guest Layout -->
                 <LinearLayout
                     android:id="@+id/guest_layout"
                     android:layout_width="match_parent"
@@ -80,65 +90,67 @@
 
                     <Button
                         android:id="@+id/btn_login_profile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:text="LOG IN"
+                        android:text="Log In"
                         android:backgroundTint="@color/white"
-                        android:textColor="@color/katutubo_orange"
-                        android:layout_marginEnd="10dp"/>
+                        android:textColor="#EE4D2D"
+                        android:layout_marginEnd="12dp"
+                        android:textAllCaps="false"/>
 
                     <Button
                         android:id="@+id/btn_signup_profile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:text="SIGN UP"
-                        android:backgroundTint="@color/katutubo_brown"
-                        android:textColor="@color/white"/>
+                        android:text="Sign Up"
+                        android:backgroundTint="?android:attr/colorBackground"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false"
+                        android:alpha="0.8"/>
                 </LinearLayout>
-
             </RelativeLayout>
 
-            <!-- Purchases Card -->
+            <!-- My Purchases -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-20dp"
-                android:layout_marginHorizontal="12dp"
-                android:background="@drawable/rounded_white_bg"
-                android:elevation="4dp"
+                android:background="@color/white"
                 android:orientation="vertical"
-                android:padding="15dp"
-                android:clipChildren="false"
-                android:clipToPadding="false">
+                android:paddingBottom="12dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp">
-                    <LinearLayout
+                    android:padding="16dp">
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="My Purchases"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/badge_my_purchases"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginStart="8dp"
-                            android:background="@drawable/badge_background"
-                            android:gravity="center"
-                            android:text="1"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:visibility="gone" />
-                    </LinearLayout>
+                        android:text="My Purchases"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:drawableStart="@android:drawable/ic_menu_view"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/badge_my_purchases"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_toEndOf="@id/dummy_anchor"
+                        android:layout_marginStart="-12dp"
+                        android:background="@drawable/badge_bg"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:text="@string/default_badge_text"
+                        android:visibility="gone" />
+
+                    <View
+                        android:id="@+id/dummy_anchor"
+                        android:layout_width="100dp"
+                        android:layout_height="1dp"
+                        android:layout_alignParentStart="true"/>
+
                     <TextView
                         android:id="@+id/btn_view_history"
                         android:layout_width="wrap_content"
@@ -146,136 +158,126 @@
                         android:layout_alignParentEnd="true"
                         android:text="View Purchase History ›"
                         android:textColor="#888888"
-                        android:textSize="12sp"
-                        android:clickable="true"
-                        android:focusable="true"/>
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="4"
-                    android:clipChildren="false"
-                    android:clipToPadding="false">
+                    android:weightSum="4">
 
-                    <LinearLayout android:id="@+id/to_pay" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:clipChildren="false" android:clipToPadding="false">
-                        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
-                            <TextView android:id="@+id/icon_to_pay" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💳" android:textSize="24sp" />
-                            <TextView android:id="@+id/badge_to_pay" android:layout_width="16dp" android:layout_height="16dp" android:layout_alignTop="@id/icon_to_pay" android:layout_alignEnd="@id/icon_to_pay" android:layout_marginTop="-4dp" android:layout_marginEnd="-6dp" android:background="@drawable/badge_background" android:gravity="center" android:text="1" android:textColor="@color/white" android:textSize="10sp" android:textStyle="bold" android:visibility="gone" />
-                        </RelativeLayout>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Pay" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    </LinearLayout>
+                    <RelativeLayout android:id="@+id/to_pay" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_payment_24" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Pay" android:textSize="11sp" android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                        <TextView android:id="@+id/badge_to_pay" android:layout_width="18dp" android:layout_height="18dp" android:background="@drawable/badge_bg" android:textColor="@color/white" android:textSize="10sp" android:gravity="center" android:layout_alignParentEnd="true" android:layout_marginEnd="12dp" android:text="@string/default_badge_text" android:visibility="gone" />
+                    </RelativeLayout>
 
-                    <LinearLayout android:id="@+id/to_ship" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:clipChildren="false" android:clipToPadding="false">
-                        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
-                            <TextView android:id="@+id/icon_to_ship" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📦" android:textSize="24sp" />
-                            <TextView android:id="@+id/badge_to_ship" android:layout_width="16dp" android:layout_height="16dp" android:layout_alignTop="@id/icon_to_ship" android:layout_alignEnd="@id/icon_to_ship" android:layout_marginTop="-4dp" android:layout_marginEnd="-6dp" android:background="@drawable/badge_background" android:gravity="center" android:text="1" android:textColor="@color/white" android:textSize="10sp" android:textStyle="bold" android:visibility="gone" />
-                        </RelativeLayout>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Ship" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    </LinearLayout>
+                    <RelativeLayout android:id="@+id/to_ship" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_shipping_24" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Ship" android:textSize="11sp" android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                        <TextView android:id="@+id/badge_to_ship" android:layout_width="18dp" android:layout_height="18dp" android:background="@drawable/badge_bg" android:textColor="@color/white" android:textSize="10sp" android:gravity="center" android:layout_alignParentEnd="true" android:layout_marginEnd="12dp" android:text="@string/default_badge_text" android:visibility="gone" />
+                    </RelativeLayout>
 
-                    <LinearLayout android:id="@+id/to_receive" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:clipChildren="false" android:clipToPadding="false">
-                        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
-                            <TextView android:id="@+id/icon_to_receive" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚚" android:textSize="24sp" />
-                            <TextView android:id="@+id/badge_to_receive" android:layout_width="16dp" android:layout_height="16dp" android:layout_alignTop="@id/icon_to_receive" android:layout_alignEnd="@id/icon_to_receive" android:layout_marginTop="-4dp" android:layout_marginEnd="-6dp" android:background="@drawable/badge_background" android:gravity="center" android:text="1" android:textColor="@color/white" android:textSize="10sp" android:textStyle="bold" android:visibility="gone" />
-                        </RelativeLayout>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Receive" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    </LinearLayout>
+                    <RelativeLayout android:id="@+id/to_receive" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_receive_24" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Receive" android:textSize="11sp" android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                        <TextView android:id="@+id/badge_to_receive" android:layout_width="18dp" android:layout_height="18dp" android:background="@drawable/badge_bg" android:textColor="@color/white" android:textSize="10sp" android:gravity="center" android:layout_alignParentEnd="true" android:layout_marginEnd="12dp" android:text="@string/default_badge_text" android:visibility="gone" />
+                    </RelativeLayout>
 
-                    <LinearLayout android:id="@+id/to_rate" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical" android:clickable="true" android:focusable="true" android:clipChildren="false" android:clipToPadding="false">
-                        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:clipChildren="false" android:clipToPadding="false">
-                            <TextView android:id="@+id/icon_to_rate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="⭐" android:textSize="24sp" />
-                            <TextView android:id="@+id/badge_to_rate" android:layout_width="16dp" android:layout_height="16dp" android:layout_alignTop="@id/icon_to_rate" android:layout_alignEnd="@id/icon_to_rate" android:layout_marginTop="-4dp" android:layout_marginEnd="-6dp" android:background="@drawable/badge_background" android:gravity="center" android:text="1" android:textColor="@color/white" android:textSize="10sp" android:textStyle="bold" android:visibility="gone" />
-                        </RelativeLayout>
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Rate" android:textSize="12sp" android:textColor="@color/katutubo_brown" android:textStyle="bold" android:layout_marginTop="4dp" />
-                    </LinearLayout>
+                    <RelativeLayout android:id="@+id/to_rate" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_star_24" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="To Rate" android:textSize="11sp" android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                        <TextView android:id="@+id/badge_to_rate" android:layout_width="18dp" android:layout_height="18dp" android:background="@drawable/badge_bg" android:textColor="@color/white" android:textSize="10sp" android:gravity="center" android:layout_alignParentEnd="true" android:layout_marginEnd="12dp" android:text="@string/default_badge_text" android:visibility="gone" />
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Menu List -->
+            <!-- Menu Grid Shopee Style -->
             <LinearLayout
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp" android:layout_marginTop="15dp"
-                android:layout_marginBottom="20dp" android:background="@drawable/rounded_white_bg"
-                android:elevation="2dp" android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/my_favorites"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="My Favorites"
-                    android:drawableEnd="@android:drawable/ic_menu_more"
-                    android:clickable="true"
-                    android:focusable="true"/>
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" />
-                <TextView
-                    android:id="@+id/recently_viewed"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="Recently Viewed"
-                    android:drawableEnd="@android:drawable/ic_menu_more"
-                    android:clickable="true"
-                    android:focusable="true"/>
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" />
-                <TextView
-                    android:id="@+id/my_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="My Account"
-                    android:drawableEnd="@android:drawable/ic_menu_more"
-                    android:clickable="true"
-                    android:focusable="true"/>
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" />
-                <TextView
-                    android:id="@+id/help_centre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="Help Centre"
-                    android:drawableEnd="@android:drawable/ic_menu_more"
-                    android:clickable="true"
-                    android:focusable="true"/>
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" />
-                <Button
-                    android:id="@+id/logout_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:text="LOGOUT"
-                    android:textColor="#E74C3C"
-                    android:textStyle="bold"
-                    android:gravity="start|center_vertical"
-                    android:paddingStart="15dp"
-                    android:visibility="gone"/>
-            </LinearLayout>
-
-            <!-- Recently Viewed Section -->
-            <LinearLayout
-                android:id="@+id/profile_recent_views_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <TextView android:id="@+id/my_favorites" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="My Favorites" android:drawableStart="@android:drawable/ic_menu_save" android:drawablePadding="16dp" android:drawableEnd="@android:drawable/ic_menu_more"/>
+                <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="#EEEEEE" android:layout_marginStart="48dp"/>
+                <TextView android:id="@+id/recently_viewed" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="Recently Viewed" android:drawableStart="@android:drawable/ic_menu_recent_history" android:drawablePadding="16dp" android:drawableEnd="@android:drawable/ic_menu_more"/>
+                <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="#EEEEEE" android:layout_marginStart="48dp"/>
+                <TextView android:id="@+id/my_account" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="My Account" android:drawableStart="@android:drawable/ic_menu_myplaces" android:drawablePadding="16dp" android:drawableEnd="@android:drawable/ic_menu_more"/>
+                <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="#EEEEEE" android:layout_marginStart="48dp"/>
+                <TextView android:id="@+id/help_centre" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp" android:text="@string/help_centre" android:drawableStart="@android:drawable/ic_menu_help" android:drawablePadding="16dp" android:drawableEnd="@android:drawable/ic_menu_more"/>
+            </LinearLayout>
+
+            <!-- Promotions Section -->
+            <LinearLayout
+                android:id="@+id/profile_promo_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginBottom="20dp"
-                android:visibility="gone">
+                android:paddingVertical="12dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_btn_special_offers"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Recently Viewed"
-                    android:textColor="@color/katutubo_brown"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:text="@string/special_offers_caps"
+                    android:textColor="#888888"
+                    android:textSize="12sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
-                    android:layout_marginTop="8dp">
+                    android:paddingHorizontal="8dp">
+                    <LinearLayout
+                        android:id="@+id/profile_promo_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <!-- Recent Views Section -->
+            <LinearLayout
+                android:id="@+id/profile_recent_views_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recently_viewed_caps"
+                    android:textColor="#888888"
+                    android:textSize="12sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:paddingHorizontal="8dp">
                     <LinearLayout
                         android:id="@+id/profile_recent_views_container"
                         android:layout_width="wrap_content"
@@ -284,28 +286,29 @@
                 </HorizontalScrollView>
             </LinearLayout>
 
-            <!-- You Might Also Like Section -->
+            <!-- Recommendations Section -->
             <LinearLayout
-                android:id="@+id/profile_recommendations_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginBottom="20dp">
+                android:paddingVertical="12dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="You Might Also Like"
-                    android:textColor="@color/katutubo_orange"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:text="@string/recommendations_caps"
+                    android:textColor="#888888"
+                    android:textSize="12sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"/>
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
-                    android:layout_marginTop="8dp">
+                    android:paddingHorizontal="8dp">
                     <LinearLayout
                         android:id="@+id/profile_recommendations_container"
                         android:layout_width="wrap_content"
@@ -314,35 +317,15 @@
                 </HorizontalScrollView>
             </LinearLayout>
 
-            <!-- Promotion Section -->
-            <LinearLayout
-                android:id="@+id/profile_promotion_section"
+            <Button
+                android:id="@+id/logout_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginBottom="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Exclusive Promotions"
-                    android:textColor="@color/katutubo_orange"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <HorizontalScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"
-                    android:layout_marginTop="8dp">
-                    <LinearLayout
-                        android:id="@+id/profile_promo_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal" />
-                </HorizontalScrollView>
-            </LinearLayout>
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/white"
+                android:text="Logout"
+                android:textColor="#EE4D2D"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>
@@ -352,9 +335,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#E67E22"
+        android:background="@color/white"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
-        app:menu="@menu/bottom_nav_menu" />
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        android:elevation="8dp"/>
 
 </RelativeLayout>

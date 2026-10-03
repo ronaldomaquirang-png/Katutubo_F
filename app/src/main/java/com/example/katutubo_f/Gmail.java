@@ -2,6 +2,7 @@ package com.example.katutubo_f;
 
 import android.app.Activity;
 import android.content.Intent;
+import com.example.katutubo_f.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,7 +32,7 @@ public class Gmail {
         this.mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("721270053996-gej0nr50qd6oqd4c0p65akt92i65d05t.apps.googleusercontent.com")
+                .requestIdToken(activity.getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 

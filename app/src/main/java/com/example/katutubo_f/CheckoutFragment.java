@@ -86,11 +86,11 @@ public class CheckoutFragment extends Fragment {
             orderId, initialStatus, formattedTotal, paymentMethod, timestamp
         );
         
-        // Populate items from cart
+        // Populate items from selected cart items
         List<OrderItem> orderItems = new ArrayList<>();
-        List<CartItem> cartItems = CartManager.getInstance(requireContext()).getCartItems();
+        List<CartItem> selectedItems = CartManager.getInstance(requireContext()).getSelectedItems();
         
-        for (CartItem cartItem : cartItems) {
+        for (CartItem cartItem : selectedItems) {
             OrderItem orderItem = new OrderItem(
                 cartItem.title,
                 "Standard", // Default variant
@@ -108,7 +108,7 @@ public class CheckoutFragment extends Fragment {
         NotificationHelper.sendOrderNotification(requireContext(), "Order Confirmed! 📦", 
             "Order " + orderId + " has been placed successfully. Total: " + formattedTotal);
 
-        CartManager.getInstance(requireContext()).clearCart();
+        CartManager.getInstance(requireContext()).removeSelectedItems();
         switchFragmentNav(new ProfileFragment());
     }
 

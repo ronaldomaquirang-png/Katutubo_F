@@ -41,7 +41,7 @@ public class BadgeHelper {
             notificationBadge.setBackgroundColor(ContextCompat.getColor(bottomNavigationView.getContext(), android.R.color.holo_red_dark));
             notificationBadge.setBadgeTextColor(ContextCompat.getColor(bottomNavigationView.getContext(), android.R.color.white));
         } else {
-            profileBadge.setVisible(false);
+            bottomNavigationView.removeBadge(R.id.nav_profile);
             bottomNavigationView.removeBadge(R.id.nav_notifications);
         }
     }

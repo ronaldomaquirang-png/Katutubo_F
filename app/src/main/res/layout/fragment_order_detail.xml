@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/katutubo_brown"
     android:orientation="vertical"
     android:clickable="true"
     android:focusable="true">
@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/katutubo_orange"
+        android:background="@color/white"
         android:paddingHorizontal="16dp">
 
         <ImageButton
@@ -23,16 +23,15 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_revert"
             android:contentDescription="Back"
-            app:tint="@color/white" />
+            app:tint="#EE4D2D" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Order Details"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="@color/black"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <ScrollView
@@ -42,158 +41,173 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <!-- Order Status Card -->
+            <!-- Shopee style status header -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_white_bg"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:elevation="2dp">
+                android:background="#26AA99"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_order_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order Completed"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Thank you for shopping!"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_order_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Order Status"
-                    android:textColor="@color/katutubo_brown"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_order_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Order #12345"
-                    android:textColor="#888888"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_order_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:text="Placed on..."
-                    android:textColor="#888888"
-                    android:textSize="14sp" />
+                    android:text="🛒"
+                    android:textSize="40sp" />
             </LinearLayout>
 
-            <!-- Cancellation Details Card (Visible only if cancelled) -->
+            <!-- Address (Simplified) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_marginTop="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📍"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="12dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Delivery Address"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="John Doe | (+63) 912 345 6789"
+                        android:textColor="#888888"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="123 Katutubo Village, Davao City"
+                        android:textColor="#888888"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Items -->
+            <LinearLayout
+                android:id="@+id/items_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp" />
+
+            <!-- Cancellation Details Card (Shown if cancelled) -->
             <LinearLayout
                 android:id="@+id/card_cancellation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/rounded_white_bg"
+                android:background="@color/white"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 android:padding="16dp"
-                android:elevation="2dp"
                 android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cancellation Info"
-                    android:textColor="#FF0000"
-                    android:textStyle="bold" />
+                    android:text="@string/cancellation_details"
+                    android:textColor="#EE4D2D"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"/>
 
                 <TextView
-                    android:id="@+id/tv_cancel_reason"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_cancellation_reason"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Reason goes here"
-                    android:textColor="#666666" />
+                    android:text="@string/default_cancellation_reason"
+                    android:textColor="#888888"
+                    android:textSize="13sp" />
             </LinearLayout>
 
-            <!-- Item Details Card -->
+            <!-- Order Summary -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/rounded_white_bg"
+                android:background="@color/white"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                android:padding="16dp"
-                android:elevation="2dp">
+                android:padding="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Item Details"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Order Amount" android:textColor="#888888" android:textSize="13sp" />
+                    <TextView android:id="@+id/tv_total_amount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="₱0.00" android:textColor="@color/black" android:textSize="13sp" />
+                </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="12dp"
-                    android:background="#EEEEEE" />
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Shipping Fee" android:textColor="#888888" android:textSize="13sp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="₱50.00" android:textColor="@color/black" android:textSize="13sp" />
+                </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/items_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="#EEEEEE" android:layout_marginVertical="8dp"/>
+
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Order Total" android:textColor="@color/black" android:textSize="16sp" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:text="₱0.00" android:textColor="#EE4D2D" android:textSize="18sp" android:textStyle="bold" />
+                </RelativeLayout>
             </LinearLayout>
 
-            <!-- Order Summary Card -->
+            <!-- Footer Details -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/rounded_white_bg"
+                android:background="@color/white"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                android:padding="16dp"
-                android:elevation="2dp">
+                android:padding="16dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total Amount"
-                        android:textColor="#666666" />
-                    <TextView
-                        android:id="@+id/tv_total_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:text="₱0.00"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Payment Method"
-                        android:textColor="#666666" />
-                    <TextView
-                        android:id="@+id/tv_payment_method"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:text="Cash on Delivery"
-                        android:textColor="#666666" />
-                </RelativeLayout>
+                <TextView android:id="@+id/tv_order_id" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Order SN: 12345678" android:textColor="#888888" android:textSize="12sp" android:layout_marginBottom="4dp"/>
+                <TextView android:id="@+id/tv_order_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Order Time: 2023-10-25 10:00" android:textColor="#888888" android:textSize="12sp" android:layout_marginBottom="4dp"/>
+                <TextView android:id="@+id/tv_payment_method" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Payment: Cash on Delivery" android:textColor="#888888" android:textSize="12sp"/>
             </LinearLayout>
 
             <Button
                 android:id="@+id/btn_action"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/katutubo_orange"
+                android:layout_height="55dp"
+                android:layout_margin="16dp"
+                android:backgroundTint="#EE4D2D"
                 android:text="Buy Again"
+                android:textAllCaps="false"
                 android:textColor="@color/white" />
 
         </LinearLayout>

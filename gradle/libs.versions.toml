@@ -1,5 +1,5 @@
 [versions]
-agp = "9.2.1"
+agp = "9.4.0"
 kotlin = "1.9.24"
 googleServices = "4.4.2"
 junit = "4.13.2"

@@ -3,7 +3,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Google Sign-In -->
-    <string name="default_web_client_id">11478091257-dm9ov86pdlkutqmscpq8egge13nif8d4.apps.googleusercontent.com</string>
+    <string name="default_web_client_id">171855614859-330s0pjcnocfohcc8oovdg4sho1gaoql.apps.googleusercontent.com</string>
 
     <!-- Cart Strings -->
     <string name="product_name_placeholder">Product Name</string>
@@ -41,4 +41,16 @@
     <string name="indigenous_market">Indigenous Market</string>
     <string name="enter_market">Enter Market</string>
     <string name="order_status_format">📦 %1$s</string>
+    <string name="special_offers">Special Offers</string>
+    <string name="recently_viewed">Recently Viewed</string>
+    <string name="you_may_also_like">YOU MAY ALSO LIKE</string>
+    <string name="product_description_placeholder">Product description goes here</string>
+    <string name="help_centre">Help Centre</string>
+    <string name="special_offers_caps">SPECIAL OFFERS</string>
+    <string name="recently_viewed_caps">RECENTLY VIEWED</string>
+    <string name="recommendations_caps">RECOMMENDATIONS</string>
+    <string name="default_badge_text">0</string>
+    <string name="cancellation_details">Cancellation Details</string>
+    <string name="cancellation_reason_prefix">Reason: </string>
+    <string name="default_cancellation_reason">Changed my mind</string>
 </resources>
